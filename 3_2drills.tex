@@ -1,0 +1,129 @@
+\documentclass[final]{article}
+\usepackage{amsmath}
+\usepackage{fullpage}
+\begin{document}
+
+\noindent Jordan Landers\\
+\hrule
+\vspace{24pt}
+
+\noindent May 8, 2018\\
+Unit 3, Lesson2, Drill 1
+
+
+\begin{enumerate}
+\item HTTH: $(\frac{1}{2})^4$\\
+HHHH: $(\frac{1}{2})^4$\\
+TTHH: $(\frac{1}{2})^4$
+\item P(man) = 1 - P(man) = $\frac{24}{45}$
+\item P(plane) = .1\\
+P(crash) = .00005\\
+P(plane)P(crash)=(.1)(.00005)=.000005
+\item People likely to respond to the survey are likely to be people who appreciate the site and spend more time browsing it. 
+\end{enumerate}
+
+\vspace{14pt}
+\hrule
+\vspace{24pt}
+
+\noindent May 8, 2018\\
+Unit 3, Lesson 2, Drill 2
+\begin{enumerate}
+\item
+\begin{math}
+\begin{aligned}[t]
+P(B|A) * \frac{P(A)}{P(B)} &= \frac{P(B|A) P(A)}{P(A)P(B|A) + P(\sim A)P(B|~A)}\\
+P(B) &= P(A) P(B|A) + P(\sim A)P(B|\sim A)\\ \\
+P(+)  &= P(TD^{+})P(+|TD^{+}) + P(-)P(TD^{+}|-)\\
+& = (.005)(.98)+(1-.005)(.1)\\
+&=.1044
+\end{aligned}
+\end{math}
+
+\item 
+\begin{math}
+\begin{aligned}[t]
+P(+ |TD^{+}) &= P(B|A) \\
+& = .98
+\end{aligned}
+\end{math}
+
+\item 
+\begin{math}
+\begin{aligned}[t]
+P(\sim B|\sim A) &= 1- P(B| \sim A)\\
+P(-|TD^{-} &= 1-.1\\
+&=.9
+\end{aligned}
+\end{math}
+
+\item 
+\begin{math}
+\begin{aligned}[t]
+& 1-(P(A\cap B) + P(\sim A\cap \sim B))\\
+&1-(P(A | B) P(B)+ P(\sim A | \sim B) P(\sim B))\\
+&1-(P(B | A) P(A)+ P(\sim B | \sim A) P(\sim A))\\
+&1-(P(B | A) P(A)+ P(\sim B | \sim A) (1-P(A)))\\
+&1-((.98)(.005) + (.9)(1-.005))\\
+=&.0996
+\end{aligned}
+\end{math}
+
+\end{enumerate}
+\vspace{14pt}
+\hrule
+\vspace{24pt}
+\pagebreak
+
+\noindent May 8, 2018\\
+Unit 3, Lesson 2, Drill 3
+
+\begin{enumerate}
+\item Data Source: Amsterdam availability data scraped from AirBnB on December 24th. \\
+Question: What are the popular neighborhoods in Amsterdam?\\
+Review: "Popular" in what sense?  Insofar as tourism, housing may be more available in a particular area if that neighborhood disproportionately travels to see relatives in Bermuda for Christmas, or may be disproportionately unavailable if family from the south of France is craving a winter holiday experience, or people stay in town and don't rent out their homes.  There is likely to be some amount of normal tourism around Christmas, but one night--Christmas Eve, no less-- is an insufficient and unrepresentative sample of the general Amsterdam tourism patterns.  
+\item Data Source: Mental health services use on September 12, 2001 in San Francisco, CA and New York City, NY. \\ Question: How do patterns of mental health service use vary between cities?\\
+Review: September 12, 2001 was an extenuating circumstance in the U.S. because of the three counts plane-related terrorism on September 11, 2001.  In particular, the crashes into the World Trade Center towers in New York City left that city in a state of unrest that has been a gradual process of recovery. Either one would need to collect data over multiple days probably as much as half a year later to have a sample that would be representative, or consider the specfic comaprison of two cities post-trauma.   
+\item Data Source: Armenian Pub Survey. \\
+Question: What are the most common reasons Armenians visit local pubs?\\
+Review: Data disporportionately reflects the reasons Armenian students or Armenians younger than 25 visit local pubs. It is unclear whether (though unlikely that) this is the sole population that visits local pubs.  
+
+\end{enumerate}
+
+\vspace{14pt}
+\hrule
+\vspace{24pt}
+\pagebreak
+
+\noindent May 9, 2018\\
+Unit 3, Lesson 2, Drill 4 (Monty Hall problem)
+\\
+\\
+The Monty Hall problem can be described as such:\\
+You are on a game show and given the choice of whatever is behind three doors. Behind one door is a fantastic prize (some examples use a car, others use cash) while behind the other two doors is a dud (some examples say a goat, others say it's just empty). You pick a door. Then the host opens one of the other two doors to reveal a dud. But here's the wrinkle: the host now gives you the opportunity to switch your door. What should you do?\\
+\\
+To apply Baye's rule we need to know the following: 
+\begin{enumerate}
+\item A label for the state/situation/event we want to calculate the probability of.  Call this $H$\\
+MHP: there is a car behind door 1, the door you chose
+\item A label for the observations/evidence that would inform the probability, $E$\\
+MHP: Monty Hall shows you a goat
+\item The probability that the state/situation/event ($P(H)$) is true (this is the prior which will be updated in light of other information)\\
+MHP: Each door has an equal starting probability; ($P(H)=\frac{1}{3}$)
+\item The probability of the observations/evidence, $E$, given the claim, $H$, is true: $P(E|H)$\\
+MHP: The probability that Monty Hall shows you a goat given there is a car behind door 1; ($P(E|H)=1$)
+\item The probability of the observations/evidence ($E$) given the claim ($H$) is false: $P(E| \sim H)$\\
+MHP: The probability that Monty Hall shows you a goat given there is a goat behind door 1; ($P(E| \sim H)=1$)
+\end{enumerate}
+
+\begin{align}
+P(H|E)&=\frac{P(E|H)P(H)}{P(E|H)P(H)+P(E|\sim H)P(\sim H)}\\
+&=\frac{1*\frac{1}{3}}{1*\frac{1}{3}+1*\frac{2}{3}}\\
+&=\frac{1}{3}
+\end{align}
+
+\noindent The probability that the car is behind door 1, given you initially guess door 1 is $\frac{1}{3}$, so the probabilty that it is behind the door that was not openned is $\frac{2}{3}$ (and thus you are better off changing your pick).
+
+
+
+\end{document}
