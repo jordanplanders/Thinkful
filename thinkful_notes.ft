@@ -175,11 +175,12 @@
 #### Section 2: Conditional Selection
 - use lambda functions e.g. df2.loc[lambda df: df2[variable_name]>3, :] which says return a dataframe where where the valuse of df2[variable_name] >3
 - alternatiely: df2[df2[variable_name]>3] would also work
+	- multiple conditions: df2[(df2[variable_name]>3 & df2[variable_name2]<5)]
 #### Section 3: Groups
 - create small dataframes that are made up of grouped rows with df2.groupby('variable_name')
 - can be useful to have it return an aggregate measure, something like df2.groupby('variable_name').aggregate(np.mean)
 ### Assignment 4: Working with Files
-#### Section 1: Opening files with Pandas
+#### Section 1: Opening files with and loading into Pandas
 - CSV
 	- load: pd.read_csv(); options for managing headers etc.
 	- output: pd.to_csv('my_data.csv'); write dataframe to csv
@@ -387,6 +388,10 @@ stayed then won: 0.31952662721893493
 	- t-value = y_mean/standard_error_y
 		- in noisy sample the difference (y_mean) is likely to result from noise rather than real differnces in population mean
 	- p-value = probability that a t-value this extreme would happen by chance; how likely it is that we would get the sampling data we observe if the two populations were not different form one another. p-value run from 0 to 1, with lower p-vaue indicating more confidence that there is a meaningful difference between the means of the two groups (that they come from two populations).
+		- low p value --> different populations
+		- high p value --> same population
+
+		- likelihood of getting a difference this large or larger if the samples were from the same population 
 # Unit 4: Job
 ## Lesson 1: 
 ### Assignment 1: Explore the landscape 
