@@ -166,8 +166,20 @@
 	- can address columns with either dot notation df.col1 or df['col1']
 	- can do an element-wise calculation to see output, or can assign to a new df column
 ### Assignment 3: Pandas-Selecting and Grouping
+- most basic form of selecting is df['variable_name'] which returns a series of data, and to retrieve row labels, need to use .index
+#### Section 1: Basic Selects with .loc and .iloc
+- df.loc[row_name] will return the row
+- df.iloc[:, 'variable_name'] will return the column
+- to select the value of the variable associated with 'variable_name' and row_name, use df.loc[row_name, variable_name]
+- to do integer indexing can do df.iloc[row_1:row_n, col_n]
+#### Section 2: Conditional Selection
+- use lambda functions e.g. df2.loc[lambda df: df2[variable_name]>3, :] which says return a dataframe where where the valuse of df2[variable_name] >3
+- alternatiely: df2[df2[variable_name]>3] would also work
+#### Section 3: Groups
+- create small dataframes that are made up of grouped rows with df2.groupby('variable_name')
+- can be useful to have it return an aggregate measure, something like df2.groupby('variable_name').aggregate(np.mean)
 ### Assignment 4: Working with Files
-### Assignment 1: Opening files with Pandas
+#### Section 1: Opening files with Pandas
 - CSV
 	- load: pd.read_csv(); options for managing headers etc.
 	- output: pd.to_csv('my_data.csv'); write dataframe to csv
@@ -182,6 +194,9 @@
 - Encoding
 	- Python3 strings are unicode and use utf-8 encoding 
 	- however... sometimes you have to fish around and try different encoding schemes to extract text from the binary (alert: if the file came from Windows, try cp1252, and if that fails try Chardet to suss out what the encoding scheme is)
+#### Section 2: Tuning Dataframe
+- set index column: df = df.set_index('column_name')
+- change column name: df = df.rename(columns = {old_name : new_name})
 
 # Unit 3 Statistics for Data Science
 ## Lesson 1: Summarizing data
