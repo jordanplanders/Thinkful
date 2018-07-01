@@ -23,10 +23,12 @@ axis_sz = 22
 tick_sz = 21
 
 # Break water column into statistically different watermasses by regressing
-# sections of the slope. When the r**2 value is higher than .99 save the depth 
+# sections of the slope of at least 60 data points. as long as the r**2 is increasing, 
+# expand the intervale by 5 meters. When the r**2 value begins to decline save the depth 
 # and start a new section
 
 
+# kwargs: takes 'exist_plt' if this is a second plot in a fig, and 'depth_lim' in case the second plot is a section with a different minimum depth
 def column_split_byslope(_feat_data, _d, **kwargs):
     _feat_data = np.asarray(_feat_data).reshape(-1, 1)
     lower_bound = max(_d)
@@ -123,6 +125,7 @@ def column_split_byslope(_feat_data, _d, **kwargs):
 # depth where the p value is just less than .01
 # then set bottom bound = middle bound and repeat
 
+# kwargs: takes 'exist_plt' if this is a second plot in a fig, and 'depth_lim' in case the second plot is a section with a different minimum depth
 def column_split_ptest(_feat_data2, _d, **kwargs):
     _feat_data = np.asarray(_feat_data2).reshape(-1, 1)
 
