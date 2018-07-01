@@ -22,6 +22,5 @@ Repeat until the locations of the clusters stabilize.
 
 Figure | Caption
 ------------ | -------------
-![Initial clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_init.png) | Left is a figure showing two points randomly generated as initial centers (the red and blue xs) and the initial labels assigned to each of the data points.
-![Final clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_final.png)| Left is a figure showing the final location of the centers with the final labels assigned to each of the data points.  You'll notice that a number of the data points have been relabelled in the process.
-
+![Initial clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_init.png) | Initial labelled data based on two randomly generated centers (xs)
+![Final clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_final.png)| Final (revised) labelled data and revised centers. 
