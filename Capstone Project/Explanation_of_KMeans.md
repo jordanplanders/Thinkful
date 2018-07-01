@@ -19,8 +19,13 @@ It goes like this (although the actual code inevitably is written to be more eff
 
 Repeat until the locations of the clusters stabilize. 
 
-Below is a figure showing two points randomly generated as initial centers (the red and blue xs) and the initial labels assigned to each of the data points
+
+Below is a figure showing two points randomly generated as initial centers (the red and blue xs) and the initial labels assigned to each of the data points.
+
 ![Initial clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_init.png)
 
-Below is a figure showing the final location of the centers with the final labels assigned to each of the data points.  You'll notice that a number of the data points have been relabelled in the process. 
+
+
+Below is a figure showing the final location of the centers with the final labels assigned to each of the data points.  You'll notice that a number of the data points have been relabelled in the process.
+
 ![Final clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_final.png)
