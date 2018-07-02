@@ -1,6 +1,9 @@
 
 ## Testing methods for sectioning the water column with statistics
-One fo the next questions in my mind was: how might I go about dividing the water column into distinct zones with math. 
+One fo the next questions in my mind was: how might I go about dividing the water column into distinct zones with math?
+
+With occam's razor in mind, I've been working with r^2 values (value of how close data is to regression line) and ptests (stastical test that describes the likelihood that two samples can be drawn from the same population; a low p value suggests it is very unlikely that the two sample could have been randomly pulled from the same population).  
+
 
 Figure | Caption
 ------------ | -------------
