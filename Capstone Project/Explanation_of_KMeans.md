@@ -24,3 +24,15 @@ Figure | Caption
 ------------ | -------------
 ![Initial clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_init.png) | Initial labelled data based on two randomly generated centers (xs)
 ![Final clustering output](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/cluster_figs/cluster_ex_final.png)| Final (revised) labelled data and revised centers. 
+
+
+### Metrics
+An additional note about the [silhouette score] 
+(http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html): 
+
+Compute the mean Silhouette Coefficient of all samples.
+The Silhouette Coefficient is calculated using the mean intra-cluster distance (a) and the mean nearest-cluster distance (b) for each sample. The Silhouette Coefficient for a sample is (b - a) / max(a, b). So a is the distance from a point to its labelled centroid and b is the distance between a sample and the nearest cluster that the sample is not a part of.
+
+The best value is 1 and the worst value is -1. Values near 0 indicate overlapping clusters. Negative values generally indicate that a sample has been assigned to the wrong cluster, as a different cluster is more similar.
+
+As a practical matter it describes how close the clustering is within one cluster and how seperate the clusters are from each other. 
