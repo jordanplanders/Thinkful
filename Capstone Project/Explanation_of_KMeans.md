@@ -27,7 +27,8 @@ Figure | Caption
 
 
 ### Metrics
-An additional note about the [silhouette score] (http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html): 
+An additional note about the [silhouette score] 
+(http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html): 
 
 Compute the mean Silhouette Coefficient of all samples.
 The Silhouette Coefficient is calculated using the mean intra-cluster distance (a) and the mean nearest-cluster distance (b) for each sample. The Silhouette Coefficient for a sample is (b - a) / max(a, b). So a is the distance from a point to its labelled centroid and b is the distance between a sample and the nearest cluster that the sample is not a part of.
