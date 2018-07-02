@@ -20,8 +20,8 @@ Figure | Caption
 ### Pseudo code:
 
 Break water column into statistically different watermasses by regressing sections of the slope of at least 60 data points. 
-- As long as the r**2 is increasing, expand the intervale by 5 meters. 
-When the r**2 value begins to decline save the depth and start a new section
+- As long as the r2 is increasing, expand the intervale by 5 meters. 
+- When the r2 value begins to decline save the depth and start a new section
 
 Figure | Caption
 ------------ | -------------
