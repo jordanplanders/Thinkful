@@ -202,7 +202,6 @@ def column_split_ptest(_feat_data2, _d, **kwargs):
         
     if 'depth_lim' in kwargs:
         ax.set_ylim(kwargs['depth_lim'])
-    
         
     return intervals, fig, ax
 
