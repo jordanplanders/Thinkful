@@ -149,6 +149,7 @@ def column_split_ptest(_feat_data2, _d, **kwargs):
     else:
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 7), facecolor='w')
         ax.set_ylabel('Depth (m)', fontsize=tick_sz-4)
+        ax.invert_yaxis()
         
     while upper_bound >0:
         n_1 = 0
@@ -201,7 +202,7 @@ def column_split_ptest(_feat_data2, _d, **kwargs):
         
     if 'depth_lim' in kwargs:
         ax.set_ylim(kwargs['depth_lim'])
-    ax.invert_yaxis()
+    
         
     return intervals, fig, ax
 
