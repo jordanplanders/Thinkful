@@ -8,10 +8,12 @@ Consider sections along 25W and 175W.  The contours give a sense of the distribu
 
 Atlantic | Pacific
 ------------ | -------------
+
 ![section of phosphate-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_70s-80n_175-175w__70s-80n_25-25w.png)
 
 Atlantic | Pacific
 ------------ | -------------
+
 ![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_70s-80n_175-175w__70s-80n_25-25w.png)
 
 ### World Ocean Atlas
@@ -43,6 +45,8 @@ The two groups of tracer values apparent in the histograms in column B offer fur
 ## Part 3: What's next?  
 ### Multiple tracers and clustering
 How can we use cluster analysis and multiple tracers to better define watermasses?  What areas are classified differently depending on the combination of tracers used?
+
+
 
 
 - To understand the contribution by a given process, we need to know how much change is due to mixing
