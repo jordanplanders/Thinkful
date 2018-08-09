@@ -20,8 +20,9 @@ And more      | With an escaped '\|'         ||
 |------------ | -------------|
 ![section of phosphate-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_70s-80n_175-175w__70s-80n_25-25w.png)||
 
-Atlantic | Pacific
+![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_70s-80n_175-175w__70s-80n_25-25w.png)||
 ------------ | -------------
+Atlantic | Pacific
 
 ![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_70s-80n_175-175w__70s-80n_25-25w.png)
 
