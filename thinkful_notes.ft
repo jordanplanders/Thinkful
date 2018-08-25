@@ -96,6 +96,54 @@
 ### Assignment 2: Control Flow and Conditionals
 - Conditional statements: if, elif, else
 - Exception handling: try and except to try to run something and then offer a way to deal with an error if one is thrown and gracefully continue running the code
+## Lesson 4: Lists and Loops
+### Assignment 1: Lists
+- lists can strore a collection of data in an ordered sequence, data of any type and can be of mixed type
+#### Section 1: Creating lists
+- can initiate a list either as an empty list [] or with items in it seperated by commas [1,2,3,4]
+- calling list() on an iterable will make the iterable into a list of the items
+#### Section 2: Accessing 
+- access list items by index (e.g. lst[0] is the first item in the list lst)
+- accessing list by slicing (e.g. lst[:3])
+#### Section 3: Updating a list
+- replacing the item (e.g. lst[0] = 'bear')
+- add an item to the end with .append()
+- pop an item off the front of a list (returns the item popped)
+- insert an item into a list with .insert(index, value)
+#### Section 4: Additional list methods
+- find the index of a particular value with .index(value)
+- sorting a list with .sort will sort the list alphabetically or in number order
+- len() will return the length of the list
+### Assignment 2: Loops and iteration
+- allow you to execute a set of instructions a specific number of times or until some condition is met
+#### Section 1: for loops
+- run through a block of code a specific number of times over an iterable
+- for ik, value in enumerate(lst):
+- for key in dict.keys():
+- for ik in range(len(list)):
+#### Section 2: while loops
+- useful when you don't know how many times you need to run the loop but know that there is a logical condition that will mark an appropriate stopping place
+- while [some statment that is initially false but will become true]:
+	- often add an escape hatch with if [alternative condition]: break
+## Lesson 5: Dictionaries
+### Assignment 1: Working with Dictionaries
+- collections of items in curly braces {}, where an item is a key: value pair
+- keys can be strings or immutable objects (e.g. sets)
+- values are accessed by d[key]
+- to add a value: d[key]= value, to update a value just reassign: d[key]= value2
+- to delete an item: del d[key]
+- boolean operations
+	- assume d = {key1: value1, key2: valeu2}
+	- key1 in d --> True
+	- key3 not in d --> True
+	- key3 in d --> False
+- methods and looping
+	- dictionary view object of keys: d.keys()
+	- dictionary view object of values: d.values()
+	- dictionary view object of key-value sets: d.items()
+	- notes about view objects: 
+		- can make view objects into lists, but as is, they are dynamic and will reflect the up-to-date version of the dictionary
+		- dictionaries and their view objects are unordered, lists are ordered
 ## Lesson 6: Objects, classes, and modules
 - Data Science isn't a very object oriented discipline, but good to know how objects work
 ### Assignment 1: Intro to Objects
@@ -198,7 +246,61 @@
 #### Section 2: Tuning Dataframe
 - set index column: df = df.set_index('column_name')
 - change column name: df = df.rename(columns = {old_name : new_name})
+## Lesson 2: Data Visualzations with matplotlib
+### Assignment 1: Basic Plots and Scatter
+#### Section 1: Matplotlib
+- use matplotlib for most plotting, and we are partiularlay interested in pyplot
+- import matplotlib.pyplot as plt
+- %matplotlib inline (to show plots)
+- plot types:
+	- plt.plot[1,2,3,4] will plot lines between these points with the x axis being the index of the poing and the numbers being the y value
+		- color = 
+	- plt.scatter(x= [], y = []) will produce a plot of x, pairs, not connected by lines
+		- color = 'purple' %color
+		- marker = 'x' %marker style
+		- s = 20 %marker size
+	- annotations: 
+		- plt.ylim([]) %sets y limits
+		- plt.xlim([]) %sets x limits
+		- plt.ylabel('') %sets y axis label
+		- plt.xlabel('') % sets x axis label
+		- plt.title('') %sets plot title
+#### Section 2: Pandas Plot
+- plot directly using pandas
+- df.plot(kind = (e.g. 'scatter', 'line'), x = 'variable name', y = 'variable name')
+### Assignment 2: Subplots
+- subplots are a way fo amkeing multiple plots in one figure
+- Create a figure obect:
+	- plt.figure(figsize= (10, 5))
+- Add subplots
+	- plt.subplot(1,2,1)
+	- plt.plot(......)
+	- plt.subplot(1,2, 2)
+	- plt.plot(......)
+	- plt.tight_layout()
+- Other ways
+	- fig, ax = plt.subplots(n,figsize=(6,6)) %n= number of subplots
+	- ax = fig.add_subplot(111, aspect='equal') %111 is position
+### Assignment 3: Statistical Plots
+#### Histograms: 
+- plt.hist(x); histograms take range nd divide it into evenly sized bins and count how many points fall in each bin and reflect a count (in terms of the height of the column of the number of points that fell in each bin)
+	- bins = n %can specify the number of bins --specifies how many bin, not where bin edges are
+	- bins = np.arange(-10, 40 ) % make bins that are at integer makrs from -10 to 40
+	- normed = True % scales the bins of a given distribution so that the area under each curve sums to 1, allowing one to campare the central tedancy and the skew etc, more effectively
+	- color = color % can specify the bin color
+	- alpha = flaot % opacify
+#### Boxplot:
+- takes an array and summarizes it into average value, standard deviation, quartiles, with a few outliers explicitly plotted
+	- box is the 25th percentile to the 75th percentil with a line for the median value
+	- whiskers extend to +/- 1.5x interquartile range
+	- any outliers (fliers) are plotted seperately
+- useful to comparing statistics/spread/ranges, but not density  
+### Assignment 4: Challenge- What do you see? @exercise
+Let's go out into the world and generate some beautiful visuals. Pick a data source from this aggregation, load the data into a pandas data frame, and generate a series of visuals around that data using pyplot.
 
+Each visualization should be accompanied by 2-3 sentences describing what you think is revealed by this representation. Generate at least four different visuals, and be sure to use different types as well as the subplot functionality discussed above. And remember: clean and elegant visuals are key to telling a coherent story.
+
+Collect your images and descriptions into a shareable format. A Jupyter notebook is best, but anything you can link to is fine, including Google docs or markdown files on GitHub or gists, and share the link below.
 # Unit 3 Statistics for Data Science
 ## Lesson 1: Summarizing data
 ### Assignment 1: Population v. Sample
@@ -392,6 +494,7 @@ stayed then won: 0.31952662721893493
 		- high p value --> same population
 
 		- likelihood of getting a difference this large or larger if the samples were from the same population 
+
 # Unit 4: Job
 ## Lesson 1: 
 ### Assignment 1: Explore the landscape 
