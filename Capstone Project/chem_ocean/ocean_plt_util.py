@@ -53,3 +53,44 @@ def subplot_labels(_ax, _xLab, _yLab, xlabelpad, ylabelpad, tick_sz, axis_sz, _t
 
     _ax.text(text_coord[0], text_coord[1],text_note, transform=plt.gca().transAxes, size=text_note_sz, horizontalalignment=text_note_align)
 
+
+    
+def save_name(tracer, slice_type, minlat, maxlat, minlon, maxlon, **kwargs):
+    
+    def latlon_fn(minlat, maxlat, minlon, maxlon):
+        if maxlat<0:
+            lat = str(abs(min(minlat, maxlat)))+'-'+str(abs(max(minlat, maxlat)))+'s'
+        else:
+            if minlat<0:
+                lat = str(abs(minlat))+'s'+'-'+str(abs(maxlat))+'n'
+            else:
+                lat = str(abs(min(minlat, maxlat)))+'-'+str(abs(max(minlat, maxlat)))+'n'
+
+        if maxlon<0:
+            lon = str(abs(min(minlon, maxlon)))+'-'+str(abs(max(minlon, maxlon)))+'w'
+        else:
+            if minlon<0:
+                lon = str(abs(minlon))+'w'+'-'+str(abs(maxlon))+'e'
+            else:
+                lon = str(abs(min(minlon, maxlon)))+'-'+str(abs(max(minlon, maxlon)))+'e'
+
+        return lat+'_'+lon       
+    if 'two_loc' in kwargs:
+        latlon1 = latlon_fn(minlat, maxlat, minlon, maxlon)
+        (minlat, maxlat, minlon, maxlon) = kwargs['two_loc']
+        latlon2 = latlon_fn(minlat, maxlat, minlon, maxlon)
+        latlon = '_'+latlon1+'_and_'+latlon2
+    else:
+        latlon = '_'+latlon_fn(minlat, maxlat, minlon, maxlon)
+        
+    if 'depth' in kwargs:
+        depth = '_'+str(kwargs['depth'])+'m'
+    else:
+        depth = ''
+        
+    if 'note' in kwargs:
+        note = '_'+kwargs['note']
+    else:
+        note = ''
+    
+    return tracer+'_'+slice_type+latlon+depth+note
