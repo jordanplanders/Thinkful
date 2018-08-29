@@ -38,7 +38,7 @@ The two groups of tracer values apparent in the histograms in column B offer fur
 ### Q2: Can we trace water formation statistically?
 We can 
 
-| Raw Data | Connectedness|
+| Connectedness| Raw Data |
 |------------ | -------------|
 |         *Temperature*        ||
 ![temperature connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/temperature_connectedness_25W.png)|![section of temperature-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/temperature_section_80s-80n_25-25w.png)|
