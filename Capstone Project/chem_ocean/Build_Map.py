@@ -41,7 +41,7 @@ rcParams.update({'font.size': 11}) # Increase font-size
 import time
 
 # @cache.cached(timeout=50, key_prefix='custom_map')
-def build_map(show, proj, minLat, maxLat, minLon, maxLon, res, fig, ax, pos_num, labels_in):
+def build_map(show, proj, minLat, maxLat, minLon, maxLon, res, fig, ax, labels_in):
     t0 = time.time()
     if proj in ['cyl', 'merc', 'mill', 'cea', 'gall', 'lcc']:
         _map = Basemap(projection=proj, lat_0 = (minLat+maxLat)*.5, lon_0 = (minLon+maxLon)*.5,
