@@ -4,7 +4,7 @@ from matplotlib.mlab import griddata
 import matplotlib.pyplot as plt
 from matplotlib import cm, rcParams
 title_sz = 27
-axis_sz = 22
+axis_sz = 18
 tick_sz = 21
 rcParams.update({'font.size': tick_sz-4}) # Increase font-size
 # from matplotlib.backends.backend_pdf import PdfPages
@@ -28,22 +28,25 @@ from chem_ocean.ocean_plt_util import make_section, subplot_labels
 
 
 class rawPlotter():
+    '''
+    Generates plots (single and double): section, section+section, section+column, plan, plan+column, column of tracer data.  All require a data object, the tracer name, a preexisting fig, an ax object (of that fig).  The add_plan also requires the user specifies a depth. add_section and add_plan both include kwargs: share_limits (True applies general limits for the tracer, False applies limits of that particular dataset, a list uses the specified bounds as the tracer limits), and colorbar ('y' or no mention of 'colorbar' in kwargs prompt a colorbar, 'n' causes colorbar to be omitted)
+    support methods include: make_colorbar, make_contours, make_insetmap
+    '''
     
     gs_d = {'section':3, 'plan':2, 'column':1, 'other': 1}
     units_dict = {'temperature': '$^\circ$C', 'oxygen': 'ml/l', 'aou': 'ml/l', 'longitude': '$^\circ$E', 'salinity': '(psu)', 'nitrate': '$\mu$mol/l', 'depth': 'm', 'phosphate': '$\mu$mol/l', 'latitude': '$^\circ$N', 'oxygen_saturation': '%'}
     limits_dict = {'temperature': [0, 28], 'oxygen': [0, 10], 'aou': [0,7], 'longitude': [-179, 179], 'salinity': [32, 36.4], 'nitrate': [0,48], 'depth': [0,6000], 'phosphate':[0,4], 'latitude': [-90,90]}
     
-    
     def __init__(self, plotlist, tracerlist):
         self.plotlist = plotlist
         self.tracerlist = tracerlist
     
-    def make_depthprofile(self, ax, _colors, _x, _y, _lonLat_params, model_raw):
+    def make_insetmap(self, ax, _colors, _x, _y, _lonLat_params, model_raw):
         corner = 4
-        if model_raw == 'model':
-            for im in range(len(_x)):
-                ax.plot(_x[im], _y[im], c = _colors[im], marker = 'o', markersize=15, alpha = .1)
-        elif model_raw == 'column':
+#         if model_raw == 'model':
+#             for im in range(len(_x)):
+#                 ax.plot(_x[im], _y[im], c = _colors[im], marker = 'o', markersize=15, alpha = .1)
+        if model_raw == 'column':
             corner = 3
 
         ax.invert_yaxis()
@@ -70,9 +73,8 @@ class rawPlotter():
         # contour the gridded data, plotting dots at the nonuniform data points.
         CS = ax.contour(xi,yi,zi,10,linewidths=0.5,colors='k')
 #                         vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
-        print(type(share_limits))
+
         if type(share_limits) == list:
-            print('share_limits', share_limits)
             CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
                             vmax=share_limits[1], vmin=share_limits[0], alpha = .7)
         else:
@@ -94,13 +96,14 @@ class rawPlotter():
         cbar.ax.set_ylabel(cbar_label, fontsize=axis_sz)
         return ax, cbar
     
+    
     def make(self, **kwargs):
         cols = len(self.tracerlist)
         rows = len(self.plotlist)
         print(self.plotlist)
         w_ratios = [self.gs_d[self.plotlist[ik]] for ik in range(len(self.plotlist))]
-        fig = plt.figure(figsize=(10+6, 7))
-        if self.plotlist == ['section', 'section']:
+        fig = plt.figure(figsize=(10+6, 8))
+        if self.plotlist == ['section', 'section'] or self.plotlist == ['plan', 'plan']:
             gs = gridspec.GridSpec(cols, rows, width_ratios=w_ratios, wspace=0.1) 
         else:
             gs = gridspec.GridSpec(cols, rows, width_ratios=w_ratios, wspace=0.7) 
@@ -111,7 +114,6 @@ class rawPlotter():
             ax_out.append(fig.add_subplot(gs[ik]))
 
         return fig, ax_out
-#         plt.sca(ax[0])
 
     def add_column(self, fig, ax, data, tracer):#_x, _y, _d, _feat_data, _xLab, _yLab, _lonLat_params):
         if self.plotlist == ['column']:
@@ -119,7 +121,7 @@ class rawPlotter():
             fig.set_figwidth(6)
             
         ax.scatter(data._feat_data, data._d,  color='black')
-        ax = self.make_depthprofile(ax, False, data._feat_data, data._d, data._lonLat_params, 'column')
+        ax = self.make_insetmap(ax, False, data._feat_data, data._d, data._lonLat_params, 'column')
         ax.set_xlabel(fig.get_axes()[-1].get_ylabel(), fontsize=axis_sz-3, labelpad = 0)
     
         # set tick parameters
@@ -132,16 +134,19 @@ class rawPlotter():
         return fig, ax
     
     def add_plan(self, fig, ax, data, tracer, depth, **kwargs):#minLat, maxLat, minLon, maxLon, tracer, depth):
-        maxLon, minLon = max(data._x), min(data._x)
-        maxLat, minLat = max(data._y), min(data._y)
+        maxLon, minLon = max( data._x), min( data._x)
+        maxLat, minLat = max( data._y), min( data._y)
         figwidth = np.ceil((maxLon-minLon)/360 * 12)
-        
-        if 'profile' in self.plotlist:
+        print(figwidth)
+        if 'column' in self.plotlist:
             fig.set_figwidth(6+figwidth)
+        if self.plotlist == ['plan', 'plan']:
+            fig.set_figwidth(figwidth*2)
+            fig.set_figheight(8)
         else:
             fig.set_figwidth(figwidth)
 
-        _basemap, fig, ax = bm.build_map('y', 'merc', minLat, maxLat, minLon, maxLon, 'c', fig, ax, 111, 'lb')
+        _basemap, fig, ax = bm.build_map('y', 'merc', minLat, maxLat, minLon, maxLon, 'c', fig, ax, 'lb')
         x_coord,y_coord = _basemap(data._x, data._y)
         cbar_pad = .22
         #ax.tight_layout(pad=3, w_pad=4., h_pad=3.0)
@@ -160,22 +165,28 @@ class rawPlotter():
         ax.set_ylabel(data._yLab, fontsize=axis_sz-3, labelpad = ylabpad)
         ax.set_xlabel(data._xLab, fontsize=axis_sz-3, labelpad = xlabpad)
         
-        ax, cbar = self.make_colorbar(ax, CS, tracer, cbar_pad)
+#         ax, cbar = self.make_colorbar(ax, CS, tracer, cbar_pad)
 
         # set tick size
         xtickNames = ax.get_xticklabels()
         ytickNames = ax.get_yticklabels()
-        cbartickNames = cbar.ax.get_yticklabels()
+        ticknames = [ytickNames, xtickNames]
         
-        for names in [ytickNames, xtickNames, cbartickNames]:
-            plt.setp(names, rotation=0, fontsize=tick_sz-4)
+        if ('colorbar' not in kwargs) or (kwargs['colorbar'] =='y'):
+            fig.subplots_adjust(right = .8)
+            ax, cbar = self.make_colorbar(ax, CS, tracer, cbar_pad)
+            cbartickNames = cbar.ax.get_yticklabels()
+            ticknames = [ytickNames, xtickNames, cbartickNames]
+        
+        for names in ticknames:
+            plt.setp(names, rotation=0, fontsize=tick_sz-6)
             
         return fig, ax
     
     def add_section(self, fig, ax, data, tracer, **kwargs ):
         figwidth = np.floor((max(data._x)-min(data._x))/140 * 12)
 
-        if 'profile' in self.plotlist:
+        if 'column' in self.plotlist:
             figwidth = np.ceil((max(data._x)-min(data._x))/360 * 12)
             fig.set_figwidth(6+figwidth)
         else:
@@ -193,7 +204,7 @@ class rawPlotter():
             
         CS, ax = self.make_contours(x_coord, y_coord, data._feat_data, ax, share_limits)
         
-        ax = self.make_depthprofile(ax, None, x_coord, y_coord, data._lonLat_params, 'raw')
+        ax = self.make_insetmap(ax, None, x_coord, y_coord, data._lonLat_params, 'raw')
         
         cbar_pad = .22
         if 'plot_depths' in kwargs:
@@ -208,136 +219,15 @@ class rawPlotter():
         ytickNames = ax.get_yticklabels()
         ticknames = [ytickNames, xtickNames]
         
-        if kwargs['colorbar'] =='y':
+        if ('colorbar' not in kwargs) or (kwargs['colorbar'] =='y'):
             ax, cbar = self.make_colorbar(ax, CS, tracer, cbar_pad)
             cbartickNames = cbar.ax.get_yticklabels()
             ticknames = [ytickNames, xtickNames, cbartickNames]
-
-
         
         for names in ticknames:
             plt.setp(names, rotation=0, fontsize=tick_sz-4)
             
         return fig, ax
-
-def plotRaw(minLat, maxLat, minLon, maxLon, _in_var_names, _sliceType, **kwargs):
-    units_dict = {'temperature': '$^\circ$C', 'oxygen': 'ml/l', 'aou': 'ml/l', 'longitude': '$^\circ$E', 'salinity': '(psu)', 'nitrate': '$\mu$mol/l', 'depth': 'm', 'phosphate': '$\mu$mol/l', 'latitude': '$^\circ$N', 'oxygen_saturation': '%'}
-
-    if _sliceType == 'column':
-        _x, _y, _d, _feat_data, _basemap, _xLab, _yLab, _latLon_params = oc_data.get_column([minLat, maxLat], [minLon, maxLon], _in_var_names)
-        
-        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 7), facecolor='w')
-        
-        ax.scatter(_feat_data, _d,  color='black')
-        make_section(ax, False, _feat_data, _d, (minLon, minLat), 'column')
-        ax.set_xlabel(fig.get_axes()[-1].get_ylabel(), fontsize=axis_sz-3, labelpad = 0)
-    
-        # set tick parameters
-        xtickNames = ax.get_xticklabels()
-        ytickNames = ax.get_yticklabels()
-    
-        for names in [ytickNames, xtickNames]:
-            plt.setp(names, rotation=0, fontsize=tick_sz-4)
-
-        #ax.invert_yaxis()
-        ax_out = (ax)
-    else:
-        if _sliceType == 'plan':
-            _x, _y, _d, _feat_data, _basemap, _xLab, _yLab, _latLon_params = oc_data.get_plan([minLat, maxLat], [minLon, maxLon], _in_var_names, kwargs['depth'])
-            figwidth = np.ceil((maxLon-minLon)/360 * 12)
-            if 'add_profile' in kwargs:   
-                fig = plt.figure(figsize=(figwidth+6, 7))
-                gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1], wspace=0.4) 
-                ax = plt.subplot(gs[0])
-                ax1 = fig.add_subplot(gs[1])
-                plt.sca(ax)
-                ax_out = (ax, ax1)
-                #ax = fig.add_subplot(221)
-            else:
-                fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(figwidth, 7), facecolor='w')
-                ax_out = (ax)
-                
-            _basemap, fig, ax = bm.build_map('y', 'merc', minLat, maxLat, minLon, maxLon, 'c', fig, ax, 111, 'lb')
-            x_coord,y_coord = _basemap(_x, _y)
-            cbar_pad = .22
-            #ax.tight_layout(pad=3, w_pad=4., h_pad=3.0)
-            ylabpad = 35
-            xlabpad = 25
-            #ax.tight_layout(pad=0.4, w_pad=1., h_pad=1.0)
-
-        else:
-            if _sliceType == 'NS_section': 
-                _x, _y, _d, _feat_data, _basemap, _xLab, _yLab, _latLon_params = oc_data.get_section('NS_section', minLon, [minLat, maxLat], _in_var_names)
-            elif _sliceType == 'EW_section': 
-                _x, _y, _d, _feat_data, _basemap, _xLab, _yLab, _latLon_params = oc_data.get_section('EW_section', minLat, [minLon, maxLon], _in_var_names)
-
-            x_dim = np.floor((max(_x)-min(_x))/140 * 12) +6
-
-            y_dim = np.floor((max(_y)-min(_y))/5500 * 7)
-            
-            fig = plt.figure(figsize=(x_dim, y_dim))
-            if 'add_profile' in kwargs:   
-                gs = gridspec.GridSpec(1, 2, width_ratios=[3, 1], wspace=0.4) 
-                ax = plt.subplot(gs[0])
-                ax1 = fig.add_subplot(gs[1], sharey=ax)
-                plt.sca(ax)
-                ax_out = (ax, ax1)
-                #ax = fig.add_subplot(221)
-            else:
-                fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(x_dim, y_dim), facecolor='w')
-                ax_out = (ax)
-            x_coord = _x
-            y_coord = _y
-            ylabpad = 0
-            xlabpad = 0
-
-        # define grid.
-        xi = np.linspace(min(x_coord), max(x_coord),300)
-        yi = np.linspace(min(y_coord), max(y_coord),300)
-
-        # grid the data.
-        zi = griddata(x_coord,y_coord,_feat_data,xi,yi,interp='linear')
-
-        # contour the gridded data, plotting dots at the nonuniform data points.
-        CS = plt.contour(xi,yi,zi,10,linewidths=0.5,colors='k')
-        CS = plt.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
-                        vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
-        
-        if 'plot_pt' in kwargs:
-            #lon_pt, lat_pt = _basemap(kwargs['plot_pt'][1], kwargs['plot_pt'][0])
-            _basemap.scatter(kwargs['plot_pt'][1], kwargs['plot_pt'][0], latlon = True, color = 'w')
-            _basemap.etopo(scale= .5, alpha = .4)
-
-        # label axes
-        ax.set_ylabel(_yLab, fontsize=axis_sz-3, labelpad = ylabpad)
-        ax.set_xlabel(_xLab, fontsize=axis_sz-3, labelpad = xlabpad)
-
-        # reverse axis of y is depth
-        if not _basemap:
-            ax = make_section(plt.gca(), None, _x,_y, _latLon_params, 'raw')  
-            cbar_pad = .22
-            if 'plot_depths' in kwargs:
-                ax.scatter(_x, _d, color = 'w', alpha = .5)
-            
-        # create colorbar
-        divider = make_axes_locatable(ax)
-        cax = divider.append_axes("right", size="3%", pad=cbar_pad)
-        cbar = plt.colorbar(CS, cax=cax)
-        cbar_label = _in_var_names[0] + ' (' + units_dict[_in_var_names[0]] + ')'
-        cbar.ax.set_ylabel(cbar_label, fontsize=axis_sz) 
-        
-
-        # set tick size
-        xtickNames = ax.get_xticklabels()
-        ytickNames = ax.get_yticklabels()
-        cbartickNames = cbar.ax.get_yticklabels()
-
-        for names in [ytickNames, xtickNames, cbartickNames]:
-            plt.setp(names, rotation=0, fontsize=tick_sz-4)
-
-    # plt.show()
-    return fig, ax_out
-
 
 
 '''
