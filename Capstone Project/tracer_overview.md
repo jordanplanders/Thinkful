@@ -44,7 +44,7 @@ We can
 ![temperature connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/temperature_connectedness_25W.png)|![section of temperature-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/temperature_section_80s-80n_25-25w.png)|
 |         *Salinity*        ||
 ![salinity connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/salinity_connectedness_25W.png)|![section of salinity-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_25-25w.png)|
-|         *Phsophate*        ||
+|         *Phosphate*        ||
 ![phosphate connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/phosphate_connectedness_25W.png)|![section of phosphate-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_25-25w.png)|
 |         *Oxygen*        ||
 ![oxygen connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/oxygen_connectedness_25W.png)|![section of oxygen-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/oxygen_section_80s-80n_25-25w.png)|
