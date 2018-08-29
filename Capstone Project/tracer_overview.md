@@ -10,7 +10,7 @@ Consider sections along 25W and 175W.  The contours give a sense of the distribu
 | Pacific | Atlantic|
 |------------ | -------------|
 ![section of phosphate-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_175-175w.png)|![section of phosphate-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_25-25w.png)|
-![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_175-175w.png)|![section of salinity-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_25-25w.png)|
+![section of salinity-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_175-175w.png)|![section of salinity-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_25-25w.png)|
 
 ### World Ocean Atlas
 The World Ocean Atlas provides data on nitrate, phosphate, oxygen, temperature and salinity.  
@@ -38,6 +38,12 @@ The two groups of tracer values apparent in the histograms in column B offer fur
 ### Q2: Can we trace water formation statistically?
 We can 
 
+| Raw Data | Connectedness|
+|------------ | -------------|
+![temperature connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/temperature_connectedness_25W.png)|![section of temperature-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/temperature_section_80s-80n_25-25w.png)|
+![salinity connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/salinity_connectedness_25W.png)|![section of salinity-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_25-25w.png)|
+![phosphate connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/phosphate_connectedness_25W.png)|![section of phosphate-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_25-25w.png)|
+![oxygen connectedness in Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/oxygen_connectedness_25W.png)|![section of oxygen-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/oxygen_section_80s-80n_25-25w.png)|
 
 ## Part 3: What's next?  
 ### Multiple tracers and clustering
