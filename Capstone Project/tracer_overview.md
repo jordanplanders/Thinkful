@@ -36,7 +36,7 @@ Consider the above figure with tracer values at each of several depths along 25W
 The two groups of tracer values apparent in the histograms in column B offer further support that the deep Southern Ocean water (Antarctic Bottom Water, AABW) and NADW are distinct watermasses.  Indeed when the tracer values in 50N and 70N and 40W and 20W were compared to the values in 50S and 70S and 40W and 20W at each depth, the two groups were distinct according to a t-test (p=.01) using all tracers.
 
 ### Q2: Can we trace water formation statistically?
-We can 
+
 
 | Connectedness| Raw Data |
 |------------ | -------------|
