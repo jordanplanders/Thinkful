@@ -185,6 +185,7 @@ class rawPlotter():
     
     def add_section(self, fig, ax, data, tracer, **kwargs ):
         figwidth = np.floor((max(data._x)-min(data._x))/140 * 12)
+        print(figwidth)
 
         if 'column' in self.plotlist:
             figwidth = np.ceil((max(data._x)-min(data._x))/360 * 12)
