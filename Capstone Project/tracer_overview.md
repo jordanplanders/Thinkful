@@ -9,8 +9,8 @@ Consider sections along 25W and 175W.  The contours give a sense of the distribu
 
 |Atlantic | Pacific|
 |------------ | -------------|
-![section of phosphate-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_70s-80n_25-25w.png)|![section of phosphate-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_70s-80n_175-175w.png)|
-![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_70s-80n_25-25w.png)|![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_70s-80n_175-175w.png)|
+![section of phosphate-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_25-25w.png)|![section of phosphate-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/phosphate_section_80s-80n_175-175w.png)|
+![section of salinity-Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_25-25w.png)|![section of salinity-Atlantic-Pacific](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/salinity_section_80s-80n_175-175w.png)|
 
 ### World Ocean Atlas
 The World Ocean Atlas provides data on nitrate, phosphate, oxygen, temperature and salinity.  
