@@ -36,7 +36,7 @@ Consider the above figure with tracer values at each of several depths along 25W
 The two groups of tracer values apparent in the histograms in column B offer further support that the deep Southern Ocean water (Antarctic Bottom Water, AABW) and NADW are distinct watermasses.  Indeed when the tracer values in 50N and 70N and 40W and 20W were compared to the values in 50S and 70S and 40W and 20W at each depth, the two groups were distinct according to a t-test (p=.01) using all tracers.
 
 ### Q2: Can we trace water formation statistically?
-Water formation/upwelling and stratification are both circulation patterns in which water moves from one place to another without considerable mixing, either along a vertical path or along a horizontal path, respectively. The below plots compare the level of connectedness as a function of the p-value calculated from two proximal water parcels 3$\circ$x3$\circ$x250m or 500m.  The higher the p-value (and thus the higher the likelihood that the values in these parcels were pulled from the same population), the darker the line, and higher the confidence in the connectedness.  
+Water formation/upwelling and stratification are both circulation patterns in which water moves from one place to another without considerable mixing, either along a vertical path or along a horizontal path, respectively. The below plots compare the level of connectedness as a function of the p-value calculated from two proximal water parcels 3$$\circ$$x3$$\circ$$x250m or 500m.  The higher the p-value (and thus the higher the likelihood that the values in these parcels were pulled from the same population), the darker the line, and higher the confidence in the connectedness.  
 
 | Connectedness| Raw Data |
 |------------ | -------------|
