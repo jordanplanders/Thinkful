@@ -55,7 +55,8 @@
 - comparing strings: use "==" to compare two strings
 - string methods: string.method(); methods are called by following the string with a . and then the method name and then parentheses with any arguments 
 	- string_with_braces_{ }.format(value)
-###  Assignment 4: Working with Numbers
+### Assignment 3: String Drills (Codewars)
+### Assignment 4: Working with Numbers
 - Python 3 can represent numbers of any size, floats are double precision binary floating point numbers that represent decimals as preceisely as possible in 52 bits. Tread carefully when comparing decimals because .2+.4 ==.6 will throw back _False_ 
 - operations: 
 	- addition
@@ -86,6 +87,7 @@
 	- math.sqrt()
 	- math.py
 	- math.e
+### Assignment 5: Number Drills (Codewars)
 ## Lesson 3: Application Logic
 ### Assignment 1: Making Logical Assertions
 - True: anything that is a thing (e.g. True, string, number, list, dict)
@@ -96,6 +98,7 @@
 ### Assignment 2: Control Flow and Conditionals
 - Conditional statements: if, elif, else
 - Exception handling: try and except to try to run something and then offer a way to deal with an error if one is thrown and gracefully continue running the code
+### Assignment 3: Logic Drills (Codewars)
 ## Lesson 4: Lists and Loops
 ### Assignment 1: Lists
 - lists can strore a collection of data in an ordered sequence, data of any type and can be of mixed type
@@ -125,6 +128,7 @@
 - useful when you don't know how many times you need to run the loop but know that there is a logical condition that will mark an appropriate stopping place
 - while [some statment that is initially false but will become true]:
 	- often add an escape hatch with if [alternative condition]: break
+### Assignment 3: Loops and Lists Drills (Codewars)
 ## Lesson 5: Dictionaries
 ### Assignment 1: Working with Dictionaries
 - collections of items in curly braces {}, where an item is a key: value pair
@@ -144,6 +148,7 @@
 	- notes about view objects: 
 		- can make view objects into lists, but as is, they are dynamic and will reflect the up-to-date version of the dictionary
 		- dictionaries and their view objects are unordered, lists are ordered
+### Assignment 2: Dictionary Drills (Codewars)
 ## Lesson 6: Objects, classes, and modules
 - Data Science isn't a very object oriented discipline, but good to know how objects work
 ### Assignment 1: Intro to Objects
@@ -187,7 +192,8 @@
 		        temp_flavor = self.flavor
 		        self.flavor = quark.flavor
 		        quark.flavor = temp_color
-            
+### Assignment 4: Object Drills (Codewars)
+        
 # Unit 2
 ## Lesson 1: Introduction to NumPy and Pandas
 ### Assignment 1: Numpy
@@ -246,7 +252,8 @@
 #### Section 2: Tuning Dataframe
 - set index column: df = df.set_index('column_name')
 - change column name: df = df.rename(columns = {old_name : new_name})
-## Lesson 2: Data Visualzations with matplotlib
+#### ipython notebook: https://github.com/jordanplanders/Thinkful/blob/master/Unit%202/2-4-1.ipynb
+## Lesson 2: Data Visualizations with matplotlib
 ### Assignment 1: Basic Plots and Scatter
 #### Section 1: Matplotlib
 - use matplotlib for most plotting, and we are partiularlay interested in pyplot
@@ -301,6 +308,63 @@ Let's go out into the world and generate some beautiful visuals. Pick a data sou
 Each visualization should be accompanied by 2-3 sentences describing what you think is revealed by this representation. Generate at least four different visuals, and be sure to use different types as well as the subplot functionality discussed above. And remember: clean and elegant visuals are key to telling a coherent story.
 
 Collect your images and descriptions into a shareable format. A Jupyter notebook is best, but anything you can link to is fine, including Google docs or markdown files on GitHub or gists, and share the link below.
+### Assignment 1: Basic Plots and Scatter
+#### Section 1: Matplotlib
+- use matplotlib for most plotting, and we are partiularlay interested in pyplot
+- import matplotlib.pyplot as plt
+- %matplotlib inline (to show plots)
+- plot types:
+	- plt.plot[1,2,3,4] will plot lines between these points with the x axis being the index of the poing and the numbers being the y value
+		- color = 
+	- plt.scatter(x= [], y = []) will produce a plot of x, pairs, not connected by lines
+		- color = 'purple' %color
+		- marker = 'x' %marker style
+		- s = 20 %marker size
+	- annotations: 
+		- plt.ylim([]) %sets y limits
+		- plt.xlim([]) %sets x limits
+		- plt.ylabel('') %sets y axis label
+		- plt.xlabel('') % sets x axis label
+		- plt.title('') %sets plot title
+#### Section 2: Pandas Plot
+- plot directly using pandas
+- df.plot(kind = (e.g. 'scatter', 'line'), x = 'variable name', y = 'variable name')
+### Assignment 2: Subplots
+- subplots are a way fo amkeing multiple plots in one figure
+- Create a figure obect:
+	- plt.figure(figsize= (10, 5))
+- Add subplots
+	- plt.subplot(1,2,1)
+	- plt.plot(......)
+	- plt.subplot(1,2, 2)
+	- plt.plot(......)
+	- plt.tight_layout()
+- Other ways
+	- fig, ax = plt.subplots(n,figsize=(6,6)) %n= number of subplots
+	- ax = fig.add_subplot(111, aspect='equal') %111 is position
+### Assignment 3: Statistical Plots
+#### Histograms: 
+- plt.hist(x); histograms take range nd divide it into evenly sized bins and count how many points fall in each bin and reflect a count (in terms of the height of the column of the number of points that fell in each bin)
+	- bins = n %can specify the number of bins --specifies how many bin, not where bin edges are
+	- bins = np.arange(-10, 40 ) % make bins that are at integer makrs from -10 to 40
+	- normed = True % scales the bins of a given distribution so that the area under each curve sums to 1, allowing one to campare the central tedancy and the skew etc, more effectively
+	- color = color % can specify the bin color
+	- alpha = flaot % opacify
+#### Boxplot:
+- takes an array and summarizes it into average value, standard deviation, quartiles, with a few outliers explicitly plotted
+	- box is the 25th percentile to the 75th percentil with a line for the median value
+	- whiskers extend to +/- 1.5x interquartile range
+	- any outliers (fliers) are plotted seperately
+- useful to comparing statistics/spread/ranges, but not density  
+### Assignment 4: Challenge- What do you see? @exercise
+Let's go out into the world and generate some beautiful visuals. Pick a data source from this aggregation, load the data into a pandas data frame, and generate a series of visuals around that data using pyplot.
+
+Each visualization should be accompanied by 2-3 sentences describing what you think is revealed by this representation. Generate at least four different visuals, and be sure to use different types as well as the subplot functionality discussed above. And remember: clean and elegant visuals are key to telling a coherent story.
+
+Collect your images and descriptions into a shareable format. A Jupyter notebook is best, but anything you can link to is fine, including Google docs or markdown files on GitHub or gists, and share the link below.
+
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%202/2-2-4.ipynb
+
 # Unit 3 Statistics for Data Science
 ## Lesson 1: Summarizing data
 ### Assignment 1: Population v. Sample
@@ -347,6 +411,8 @@ most standard summary statistics have already been coded up in numpy or pandas s
 - .mean()
 - .std()
 - .value_counts(); df.variable.value_counts() returns the counts of values of a categorical variable. Also works on non categorical variables, but not as useful for continuous variables except to find null values
+### Assignment 5: Drill-Describing Data 
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-5.ipynb
 
 ## Lesson 2: Basics of Probability
 quantifying the likelihood of a future outcome
@@ -372,6 +438,8 @@ When the probability of event B changes based on the outcome of event A, event B
 - ex: the probability of pulling the first marble will be 1/2, but not the second.  The second is P(red|blue) which is read the probability of drawing a red marble conditional on a blue event = 5/9 (there are still 5 red marbles, but only 9 marbles left).  Also, the probability of drawing a blue marble is 4/9.  (Note that the se probabilities always add to 1)
 - two conditional events like the probability of a red event given the last event was a blue event: P(blue) * P(blue|red) = 1/2 * 5/9. Alternately, the probability of two blue events in a row would be P(blue) * P(blue|blue) = 1/2 * 4/9
 	- formalized: P(A intersection B) = P(A) * P(B|A) @question How does this extend to n events?
+### Assignment 4: Drill- Exercises in Probability
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-4.pdf
 ### Assignment 4: Bayes' Rule
 - Conditional Probability: we aren't focused on the probability of an independent event
 	- e.g. probability that you're infected with a disease given a positive test
@@ -436,13 +504,16 @@ print('stayed then won:', win_stay/total_stay)
 output:
 changed then won: 0.6774847870182555
 stayed then won: 0.31952662721893493
-
+### Assignment 5: Drill- Exercises in Bayes' Rule
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-6.pdf
 ### Assignment 7: Evaluating Data Sources
 - Bias: we can rarely evaluate all subjects of a population so we sample, but samples may or may not be truly random/representative.  Pay close attention to method of data collection
 - Quality: unexplained blanks, uneven distribution over a dependent variable
 - Exceptional Circumstance: was the data collected under an exceptional circumstance
 - what to do?  Adjust (impute) or limit your conclusions
-
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-7.pdf
+### Assignment 8: Challenge- Beware of Monty Hall
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-8.pdf
 ## Lesson 3: The Normal Distribution and the Central Limit Theorem
 ### Assignment 1: Define Normality
 - most values clustered in the middle with symmetrical tails to the right and left such that 68% of values fall within one standard deviation of the mean, 95% fall within two standard deviations and 99.7% fall within three standard deviations. 
@@ -477,6 +548,8 @@ stayed then won: 0.31952662721893493
 #### Section 5: Conditional Distribution
 - not hard to plot using pandas; simply plot histogram filtered against a condition
 - plt.hist(df [ df[ 'variable_count'] ># ] [variable])
+### Assignment 4: Drill- Descriptive Statistics and Normality
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-3-4.ipynb
 ### Assignment 5: CLT and Sampling
 - while not all distributions are normal, as sample size increases, population parameters (e.g. mean) are still interpretable 
 - Central Limit Theorem says (ish) that it is justifiable to start doing statistics on data sets of unknown distribution
@@ -494,7 +567,13 @@ stayed then won: 0.31952662721893493
 		- high p value --> same population
 
 		- likelihood of getting a difference this large or larger if the samples were from the same population 
-
+### Assignment 7: Drill- Exploring the Central Limit Theorem
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-3-7.ipynb
+## Lesson 4: Narrative Analytics
+### Lesson 3: Narrative Analytics Guided Example
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-4-3.ipynb
+- @question how does one go about arriving at the 8 or so mediums highlighted in the last figure?
+- @question I don't think it makes sense to use a line plot for a plot of counts v. years
 # Unit 4: Job
 ## Lesson 1: 
 ### Assignment 1: Explore the landscape 
@@ -513,8 +592,30 @@ stayed then won: 0.31952662721893493
 	- Techonologist: 2.8
 ### Assignment 2: Survey the job market
 - Job Postings: Survey the job postings in the city where you plan to work at the end of this bootcamp and pull out five job advertisements you're most excited about. Add them to your career planning document, along with a sentence about why you chose that particular job. Here are some suggestions of places to find data science job postings.  @question how do I do this if I don't feel ready for these jobs as I hope I will be in six months?
-	- https://jobs.dataelixir.com/backfills/5414224595-Parking-Data-Analyst
+	- UCLA Programmer Analyst: https://www.glassdoor.com/Job/los-angeles-ca-programmer-analyst-jobs-SRCH_IL.0,14_IC1146821_KO15,33.htm?src=GD_JOB_AD&t=SEARCH_RESULTS&ao=4120&srs=MY_JOBS&jl=2908784094
+	- UCLA Programmer Analyst: https://www.glassdoor.com/Job/los-angeles-ca-programmer-analyst-jobs-SRCH_IL.0,14_IC1146821_KO15,33.htm?src=GD_JOB_AD&t=SEARCH_RESULTS&ao=4120&srs=MY_JOBS&jl=2908784094
+	- UC BUSINESS INTELLIGENCE DEVELOPER (PROGRAMMER/ANALYST IV): https://www.glassdoor.com/Job/los-angeles-programmer-analyst-jobs-SRCH_IL.0,11_IC1146821_KO12,30_IP2.htm
+	- Bird Sr. Data Scientist: https://www.indeed.com/viewjob?jk=602e71b408bb1e82&tk=1cmha4nu2bqorb4k&from=serp&vjs=3
+	- https://www.kaiserpermanentejobs.org/job/-/-/641/8371646
+	- Factual Associate Data Scientist: https://www.indeed.com/viewjob?jk=80dfb247480ad09d&q=Data+Scientist&l=90019&tk=1cmh9vpddbqordve&from=web&vjs=3
+		- About you:
+			- You are comfortable with data analysis, wrangling, and curation, 
+			- You have a degree in a quantitative field with coursework in statistics (e.g. Math, Linguistics, Physics, Chemistry, Engineering), 
+			- You feel at home on the command line and with text processing
+			- You are eager to learn new technologies and skills in data processing and analysis
+		- Baseline Skills (these are required):
+			- 1+ years of full-time work experience or domain-relevant internships
+			- Proficient with Unix commands and Ruby/Python scripting
+			- Familiar with regular expressions, DOM/CSS/HTML, parsing JSON, and information extraction
+			- Experience in reporting, analytics and databases
+		- Specialized Skills (you need expertise in at least one of the following): 
+			- Experience with implementing machine learning pipelines
+			- Experience with Spark or MapReduce
+			- Experience with SQL and/or querying MongoDB or Solr Indexes
 - Company-first research: Next, turn your attention away from job postings and towards companies, whether or not they're hiring. Your goal is to put together a short hit list of your top five dream companies. Add them, along with a sentence about what they do and why you chose each one, to your planning document. If any of these companies overlap with the job postings you found above, add additional companies to your hit list until you have five total novel companies listed here.
+	- Lamont-Doherty Earth Observatory
+	- Motional.ai: http://www.motional.ai/#tab2
+	- GoodRx: https://angel.co/goodrx/jobs
 ### Write your own story
 Think about your ideal career two or three years from now. What particular skills have you built? What techniques and tools are your specialty? What accomplishments might you have made? Is your title "Data Scientist", or something different? Are you working in a particular industry, or solving a particular class of problems?
 
