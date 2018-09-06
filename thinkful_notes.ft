@@ -438,6 +438,8 @@ When the probability of event B changes based on the outcome of event A, event B
 - ex: the probability of pulling the first marble will be 1/2, but not the second.  The second is P(red|blue) which is read the probability of drawing a red marble conditional on a blue event = 5/9 (there are still 5 red marbles, but only 9 marbles left).  Also, the probability of drawing a blue marble is 4/9.  (Note that the se probabilities always add to 1)
 - two conditional events like the probability of a red event given the last event was a blue event: P(blue) * P(blue|red) = 1/2 * 5/9. Alternately, the probability of two blue events in a row would be P(blue) * P(blue|blue) = 1/2 * 4/9
 	- formalized: P(A intersection B) = P(A) * P(B|A) @question How does this extend to n events?
+### Assignment 4: Drill- Exercises in Probability
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-4.pdf
 ### Assignment 4: Bayes' Rule
 - Conditional Probability: we aren't focused on the probability of an independent event
 	- e.g. probability that you're infected with a disease given a positive test
@@ -502,13 +504,16 @@ print('stayed then won:', win_stay/total_stay)
 output:
 changed then won: 0.6774847870182555
 stayed then won: 0.31952662721893493
-
+### Assignment 5: Drill- Exercises in Bayes' Rule
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-6.pdf
 ### Assignment 7: Evaluating Data Sources
 - Bias: we can rarely evaluate all subjects of a population so we sample, but samples may or may not be truly random/representative.  Pay close attention to method of data collection
 - Quality: unexplained blanks, uneven distribution over a dependent variable
 - Exceptional Circumstance: was the data collected under an exceptional circumstance
 - what to do?  Adjust (impute) or limit your conclusions
-
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-7.pdf
+### Assignment 8: Challenge- Beware of Monty Hall
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-2-8.pdf
 ## Lesson 3: The Normal Distribution and the Central Limit Theorem
 ### Assignment 1: Define Normality
 - most values clustered in the middle with symmetrical tails to the right and left such that 68% of values fall within one standard deviation of the mean, 95% fall within two standard deviations and 99.7% fall within three standard deviations. 
@@ -543,6 +548,8 @@ stayed then won: 0.31952662721893493
 #### Section 5: Conditional Distribution
 - not hard to plot using pandas; simply plot histogram filtered against a condition
 - plt.hist(df [ df[ 'variable_count'] ># ] [variable])
+### Assignment 4: Drill- Descriptive Statistics and Normality
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-3-4.ipynb
 ### Assignment 5: CLT and Sampling
 - while not all distributions are normal, as sample size increases, population parameters (e.g. mean) are still interpretable 
 - Central Limit Theorem says (ish) that it is justifiable to start doing statistics on data sets of unknown distribution
@@ -560,7 +567,13 @@ stayed then won: 0.31952662721893493
 		- high p value --> same population
 
 		- likelihood of getting a difference this large or larger if the samples were from the same population 
-
+### Assignment 7: Drill- Exploring the Central Limit Theorem
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-3-7.ipynb
+## Lesson 4: Narrative Analytics
+### Lesson 3: Narrative Analytics Guided Example
+https://github.com/jordanplanders/Thinkful/blob/master/Unit%203/3-4-3.ipynb
+- @question how does one go about arriving at the 8 or so mediums highlighted in the last figure?
+- @question I don't think it makes sense to use a line plot for a plot of counts v. years
 # Unit 4: Job
 ## Lesson 1: 
 ### Assignment 1: Explore the landscape 
