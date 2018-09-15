@@ -61,62 +61,12 @@ Water formation/upwelling and stratification are both circulation patterns in wh
 
 ## Part 3: What's next?  
 ### Multiple tracers and clustering
-How can we use cluster analysis and multiple tracers to better define watermasses?  What areas are classified differently depending on the combination of tracers used?
+How can we use cluster analysis and multiple tracers to better define watermasses?  What areas are classified differently depending on the combination of tracers used? Are those differences interpretable?
 
+### Endmember analysis to trace flow trajectory
 Extending the endmember anlaysis to trace trajectories, the next level analysis is to acknowledge that the mix varies with longitude, and to analyze at various longitudes, tracing the distribution of the highest percentage of southern ocean source water as it moves north see the extent to which it fills the abyssal ocean.  Higher up in the water column tracing a high and potentially characteristic fraction southern ocean source water might yield the pathway the water takes as it snakes its way from the Southern Ocean to the North Atlantic.  
 
-
-- To understand the contribution by a given process, we need to know how much change is due to mixing
-
-	- if we use a one dimensional mixing model for salinity and then repeat the process for phosphate, how different are the mixtures? statistically different?
-
-- how do you mathematically define a watermass?
-	- seperate out by derivative analysis (strong slope indicates two watermasses passing with minimal mixing, weak slope indicates similar watermasses (check another tracer) or mixing)
-	- verify layers are distinct by p-test 
-- how do you establish its characteristic value?
-	- find the value at the water formation site (where is the water formed?)
-		when the combination of characteristic watermasses from surface to depth 
-	- check that there is a continuous trajectory over which that value persists (ptest?)
-	- when the value ceases to persist check to see if there is another watermass present
-
-In order to get around the proximity to land end-member problem, I attempted to verify that there is no coastline closer than 2 degrees away
+### Role of non-mixing processes on tracer distribution
+To understand the contribution by a given process, we need to know how much change is due to mixing; if we use a one dimensional mixing model for salinity and then repeat the process for phosphate, how different are the mixtures? statistically different?
 
 
-
-
-
-## Graveyard:
-Different tracers are sensitive to different processes. For example, salinity goes up when water evaporates and down when there is precipitation or ice melt, but is mininmally affected by organisms.  The concentrations of nitrate and phosphate, on the other hand, go down when organisms consume them, but go up again when the organisms die and dissolve. 
-
-Chemical Oceanography
-Very briefly, it's worth explaining that chemical oceanography is the study of the chemical constituents of the ocean--everything from complex proteins to individual ions.  By studying the concentrations of these constituents both temporally and spatially, we can gain insight into the biological, geological, chemical, and physical processes at work in the ocean. 
-
-
-
-
-
-
-Figure | Caption
------------- | -------------
-![profile of nitrate](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/watermass_diff_plts/nitrate_plan_60:50n-40:0w_and_50:60s-40:0w_4000m_ptest.png) | Comparison of two areas of the North Atlantic (50:60N, 40:0W) and Southern Ocean (50:60S, 40:0W) using a ptest to demonstrate they are statistically different
-
-### Pseudo code:
-Find depths of statistically different water masses by 1 tracer, assumes miniumum sample size of 200 of both zones
-
-- Starts from the bottom and if the samples between bottom bound and middle bound are not statistically different from the sample between middle bound and upper bound, push the middle bound and upper bound up and try again. 
-- Once they are stastistically different, drop the middle bound incrementally until reach the depth where the p value is just less than .01, then set bottom bound = middle bound and repeat
-
-Figure | Caption
------------- | -------------
-![section and column of nitrate](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/watermass_diff_plts/nitrate_section_70-0s32w_columnwptest_40-30s30-25w.png)| Section view of nitrate (70:0S, 32W) with dotted line location of column location and accompanying column plot (30:40S, 25:30W) broken into potential watermasses with ptest
-
-
-### Pseudo code:
-
-Break water column into statistically different watermasses by regressing sections of the slope of at least 60 data points. 
-- As long as the r2 is increasing, expand the intervale by 5 meters. 
-- When the r2 value begins to decline save the depth and start a new section
-
-Figure | Caption
------------- | -------------
-![section and column of nitrate](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/watermass_diff_plts/nitrate_section_70-0s32w_columnwslope_40s30w.png)| Section view of nitrate (70:0S, 32W) with dotted line location of column location and accompanying column plot (30:40S, 25:30W) broken into potential watermasses with r**2 analysis of slope at different locations on column profile
