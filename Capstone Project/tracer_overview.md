@@ -16,6 +16,11 @@ Consider sections along 25W and 175W.  The contours give a sense of the distribu
 The World Ocean Atlas provides data on nitrate, phosphate, oxygen, temperature and salinity.  
 
 ## Part 1: Overview statistics
+
+| Phosphate | Salinity|
+|------------ | -------------|
+![Phosphate-histogram](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/histograms/phosphate_alldata.png)|![Salinity-histogram](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/histograms/salinity_alldata.png)|
+
 Looking at histograms of phosphate and salinity highlights how different tracers play different roles in the ocean and are influenced different processes.  The roughly normal distribution of salinity reflects that, while evaporation and precipitation, brine rejection and ice melt lead to areas of higher and lower salinity, the salinity of the majority of the ocean is unaffected by processes other than the slow mixing that occurs where watermasses meet.  Because salt is added and removed on very long timescales compared to that of ocean circulation, it salinity is an approximately conservative tracer. 
 
 In contrast, phosphate is not conservative because there are highly active sources and sinks that add and remove it from the water.  Provided sufficient sunlight and complementary nutrients, organisms will incoprorate dissolved phosphate in tissue, reducing its concentration in the water column. When organisms die, they sink and many of them dissolve before reaching the seafloor, returning their phosphate deeper in the water column.  Not only does this process introduce phosphate to the internal ocean by a process other than watermass mixing, but the organic matter that reaches the seafloor may become buried, thereby removing that phosphate from the water column entirely. Sure enough, the phophate histogram has a right tail that suggests the highest phosphate water progressively mixes with lower phosphate water--similar to mixing seen in the mixing inferred from teh salinity histogram.  However, the left side of the distribution is not at all normal because, subject to light and other nutrient limiations, biology strips as much phosphate as from the water column.
