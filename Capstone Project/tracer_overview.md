@@ -40,7 +40,12 @@ Consider the above figure with tracer values at each of several depths along 25W
 
 The two groups of tracer values apparent in the histograms in column B offer further support that the deep Southern Ocean water (Antarctic Bottom Water, AABW) and NADW are distinct watermasses.  Indeed when the tracer values in 50N and 70N and 40W and 20W were compared to the values in 50S and 70S and 40W and 20W at each depth, the two groups were distinct according to a t-test (p=.01) using all tracers.
 
-### Q2: Can we trace water formation statistically?
+### Q2: How far does Southern Ocean source water extend north?
+In a simplified experiment, I considered whether deep water in the Atlantic Ocean to either most closely resemble a northern or southern end-member value.  I calculated the linear combination of the northern and southern sourced water (based on end-member values from that depth) at each point along 25degW, and colored the point based on which watermass representing a higher percentage of its makeup.  While this is a very rough approximation, it is possible to see some of the structure begin to emerge, including the Antarctic Bottom Water coming from the Southern Ocean and North Atlantic Deep Water filling the center of the Atlantic above it.
+![two_endmember_analysis of Atlantic](https://github.com/jordanplanders/Thinkful/blob/master/Capstone%20Project/raw_demo_plots/connectedness/two_endmember_Atlantic.png)
+
+
+### Q3: Can we trace water formation statistically?
 Water formation/upwelling and stratification are both circulation patterns in which water moves from one place to another without considerable mixing, either along a vertical path or along a horizontal path, respectively. The below plots compare the level of connectedness as a function of the p-value calculated from two proximal water parcels 3deg x 3deg x 250m or 500m.  The higher the p-value (and thus the higher the likelihood that the values in these parcels were pulled from the same population), the darker the line, and higher the confidence in the connectedness.  
 
 | Connectedness| Raw Data |
@@ -58,7 +63,7 @@ Water formation/upwelling and stratification are both circulation patterns in wh
 ### Multiple tracers and clustering
 How can we use cluster analysis and multiple tracers to better define watermasses?  What areas are classified differently depending on the combination of tracers used?
 
-
+Extending the endmember anlaysis to trace trajectories, the next level analysis is to acknowledge that the mix varies with longitude, and to analyze at various longitudes, tracing the distribution of the highest percentage of southern ocean source water as it moves north see the extent to which it fills the abyssal ocean.  Higher up in the water column tracing a high and potentially characteristic fraction southern ocean source water might yield the pathway the water takes as it snakes its way from the Southern Ocean to the North Atlantic.  
 
 
 - To understand the contribution by a given process, we need to know how much change is due to mixing
