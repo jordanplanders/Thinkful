@@ -1,0 +1,10 @@
+**/*.ipynb_checkpoints/*
+**/*-checkpoint.ipynb/
+**/*.pyc
+**/*.log
+**/*.out
+**/*.synctex.gz
+**/*.tex
+**/*.aux
+**/*.DS_STORE
+pdfs/
