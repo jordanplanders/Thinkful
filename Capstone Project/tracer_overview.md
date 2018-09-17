@@ -1,6 +1,6 @@
 ## Introduction
 ### Ocean Circulation and Watermasses
-Looking out at the ocean, it is hard to appreciate that the water lapping at your feet is actually on a roughly 5,000 year--somewhat circuitous--trajectory around the earth.  Our knowledge of ocean circulation and the geological, biological, and chemical processes that occur in the ocean come from the collection of measurements made at oceanographic and hydrographic stations of various chemical constituents (e.g. phosphate or oxygen, sometimes called "tracers" because they enable ocenographers to trace a process or trajectory) and properties (e.g temperature, salinity) at various depths ranging from the surface to the sea floor.  
+Looking out at the ocean, it is hard to appreciate that the water lapping at your feet is actually on a roughly 1,000 year--somewhat circuitous--trajectory around the earth.  Our knowledge of ocean circulation and the geological, biological, and chemical processes that occur in the ocean come from the collection of measurements made at oceanographic and hydrographic stations of various chemical constituents (e.g. phosphate or oxygen, sometimes called "tracers" because they enable ocenographers to trace a process or trajectory) and properties (e.g temperature, salinity) at various depths ranging from the surface to the sea floor.  
 
 Connecting similar values of a given property along strings of vertical profiles elucidates how water with similar properties (called  a watermass) flows, sinks, upwells, and mixes with other proximal watermasses. 
 
