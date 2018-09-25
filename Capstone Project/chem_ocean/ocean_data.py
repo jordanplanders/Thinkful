@@ -111,9 +111,92 @@ class dataFetcher():
         self._yLab = _y_var.title()+' (deg)'
 
 
+class water_column():
+    
+    def __init__(self, dataset, traj_type, **kwargs):
+        self.traj_type = traj_type
+        self.char_values = []
+        self.char_points = []
+        self._ax_smooth = []
+        self._d = dataset._d
+        self._x = dataset._x
+        self._y = dataset._y
+        self._feat_data = dataset._feat_data
+        self.ordered_by = 'd'
+        ax = self._d
+        
+        if 'depth' in kwargs: #creates a horizontal water column at some depth 
+            self._feat_data = dataset._feat_data[dataset._d == kwargs['depth']]
+            self._x = dataset._x[dataset._d == kwargs['depth']]
+            self._y = dataset._y[dataset._d == kwargs['depth']]
+            self._d = dataset._d[dataset._d == kwargs['depth']]
+            
+            self._y = self._y[np.argsort(self._x[:])]
+            self._d = self._d[np.argsort(self._x[:])]
+            self._feat_data = self._feat_data[np.argsort(self._x[:])]
+            self._x = self._x[np.argsort(self._x[:])]
+            self.ordered_by = 'x'
+            ax = self._x
+    
+        _ax = []
+        _feat_data = []
+        for ik in range(len(ax)):
+            if ax[ik] not in _ax:
+                _ax.append(ax[ik])
+                #change this to pull the median value if there are multiple values for a given depth
+                _feat_data.append(np.mean(self._feat_data[ax == ax[ik]]))#ik])
+                
+        self._ax_avgd = np.array(_ax)
+        self._feat_data_avgd = np.array(_feat_data)
+        self._feat_data_smooth = []
+        self._feat_data_smooth_d1 = []
+        self.extrema_d1 = []
+        self.extrema_d2 = []
+        self.mixing_labels = []
+        self.mixing_ratios = []
+        
+    def smooth_data(self):
 
+        spl = UnivariateSpline(self._ax_avgd, self._feat_data_avgd)
+        if self.traj_type == 'traj':
+            spl.set_smoothing_factor(0.01)
+        else:
+            spl.set_smoothing_factor(0.001)
+            
+        numpts = len(self._ax_avgd)/2
+        self._ax_smooth = np.linspace(min(self._ax_avgd), max(self._ax_avgd), num=numpts, endpoint=True)
+        self._feat_data_smooth = spl(self._ax_smooth)
+
+        self._feat_data_smooth_d1 = np.gradient(self._feat_data_smooth,self._ax_smooth)
+                
+    def get_mixing_labels(self, mode):
+        ax = self._ax_avgd
+        
+        ik = 0
+        colors = [('r', 'b'), ('b', 'y'), ('y', 'm'), ('m', 'g'), ('g', 'c'),('c','k')]
+        color = []
+        depth = ax[0]
+        
+        # two endmember mixing model
+        if mode == 'two_endmember':
+            mixing_ratios = [np.zeros(2) for ik in range(len(ax))]
+            u_char = min( self._feat_data_avgd) 
+            l_char = max(self._feat_data_avgd)
+            for ik in range(len(ax)):
+                mixing_ratios[ik][0] = max(min((self._feat_data_avgd[ik]-l_char)/(u_char-l_char), 1), 0)
+                mixing_ratios[ik][1] = 1-mixing_ratios[ik][0]
+                if mixing_ratios[ik][0] >= .5:
+                    color.append(colors[0][0])
+                else:
+                    color.append(colors[0][1])
+                ik+=1
+                
+        self.mixing_labels = color
+        self.mixing_ratios = mixing_ratios
+        
+        
+'''
 def connect(user, password, db, host='localhost', port=5432):
-    '''Returns a connection and a metadata object'''
     url  = 'postgresql://{}:{}@{}:{}/{}'
     url = url.format(user, password, host, port, db)
 
@@ -215,4 +298,4 @@ def get_column(lat_bounds, lon_bounds, _var_names):
     _lonLat_params = [lon_bounds, lat_bounds]#None
     
     return _x, _y, _d, _feat_data, _basemap, _x_var.title()+' (deg)', _y_var.title()+' (deg)', _lonLat_params
-    
+   '''
