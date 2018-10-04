@@ -1,0 +1,29 @@
+odv_app_dev2=# SELECT latitude, longitude, depth, phosphate FROM woa13 WHERE phosphate = (SELECT max(phosphate) FROM woa13);
+ latitude | longitude | depth | phosphate 
+----------+-----------+-------+-----------
+     43.5 |      39.5 |  1950 |   11.6205
+
+     
+odv_app_dev2=# SELECT latitude, longitude, depth, phosphate FROM woa13 WHERE phosphate = (SELECT PERCENTILE_CONT(0.95) WITHIN GROUP(ORDER by phosphate) FROM woa13);
+ latitude | longitude | depth | phosphate 
+----------+-----------+-------+-----------
+     68.5 |     -99.5 |    25 |    0.0026
+
+
+odv_app_dev2=# SELECT PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER by phosphate) FROM woa13;
+ percentile_cont 
+-----------------
+          1.9329
+
+odv_app_dev2=# SELECT avg(phosphate) from woa13;                             
+       avg       
+-----------------
+ 1.7062050159658
+
+
+
+ Tracer | Min | Max | Mean | Median
+------------ | -------------| -------------| -------------
+Phosphate | 0.0026 | 11.6205 | 1.7062050159658 | 1.9329
+
+SELECT latitude, longitude, depth, phosphate FROM woa13 WHERE phosphate > (SELECT PERCENTILE_CONT(0.9999) WITHIN GROUP(ORDER by phosphate) FROM woa13) ORDER BY depth;
