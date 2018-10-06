@@ -1,0 +1,79 @@
+1. Lateral circulation
+        1. water circulates through the ocean on a roughly 1000 yr timescale on a rather circuitous route through the basins.  
+        2. The majority of circulation happens laterally along the paths you can see marked by the colored lines that indicate the relative depth of the water
+        3. There are a few localized areas of vertical movement (gold circles) where by some process, surface water densifies and sinks down the water column, a process called water formation
+        
+2. Layered schematic
+        1. section view of The Atlantic along 30W
+        2. Layers of similar density move together with some, but usually minimal, mixing where water masses meet
+        3. Can see the verticality in the high latitudes and the horizontality in the low and mid latitudes
+        4. Develop cartoons based on data and models
+        
+**Speaking of which, one of those datasets is the premise of the rest of my presentation**
+3. World Ocean Atlas 2013 & What’s a tracer?
+        1. Comprehensive dataset, highly quality controlled, resolution with 102 depth levels and 1 degree resolution 
+        2. COs plot a physical property in the case of temperature or a chemical constituent in the case of salinity, oxygen, nitrate, phosphate and a myriad of others and use the distribution to gain insight into processes in the ocean and ocean circulation.  We call temperature, salinity, phosphate etc “tracers.”
+                
+**Let's take a look at an example tracer section**
+4. Phosphate Section
+        1. PO4 data; depth on the y axis, latitude on x axis annotated to highlight water masses
+        2. Vertical homogeneity at high south and north
+        3. Two tongues of water; one from south, one from north
+        4. Tracer value at surface is carried into interior at water formation; high PO4 in south —> high PO4 in AABW, low PO4 in north —> low PO4 in ocean interior
+
+**In an effort to put the deep ocean tracer data in context, I generated some histograms** 
+5. Histograms of phosphate, salinity, temperature; light, medium, dark
+        1. All three high latitude bound Atlantic distributions
+            1. Conservative tracers are not redistributed in the ocean interior by any process other than ocean circulation and mixing, like salinity
+            3. While phosphate is not conservative because biology redistributes it independently of ocean circulation, since the biological process is slower than the ocean circulation in the Atlantic, the effect of the process is negligible and the tracer is “effectively conservative”
+            1. Use to trace circulation in swiftly moving Atlantic where interior values appear to be a mix of high latitude sourced water
+        2. Salinity and temperature bound global set suggests salinity in particular may be used to characterize the NADW contribution to a parcel anywhere
+        3. Points outside of Atl suggest the the rest of the deep ocean is fresher and colder
+                1. Consistent with section view
+                
+**By eye we see that NA and SO values rae different, but before we use them as tracers, we need to know if they really are**
+6. Are AABW and NADW statistically different?
+        1. Col b = histograms of just high latitude Atlantic values from previous figure
+	        1. In each case, the p value generated from running a t test with these to sample sets = 0 so we take these two water masses as being distinct and not from a common population
+        2. Col a = trajectories of tracer by depth along 30W 
+            1. Depth trajectories converge at each end to different values; north and south end members (vary somewhat in the north by depth, but not a great deal)--the values at the far ends geographically are also the max and min of each depth trajectory
+            2. Through mid latitudes, trajectories diverge, with <=3500m trajectories resembling NA source and >=4500 trajectories resembling SO source; 4000m appears to be at the nexus where there is some mixing between water masses
+
+**Continuing with that concept of an end-member**
+7. End-member model setup
+        1. Consider salinity, a conservative tracer
+        2. Take every point along a depth trajectory as a combination of north end-member water value and south end-member value 
+        3. calculate the fraction of each
+        4. If %red is higher—> red label, %blue higher—>blue label
+
+**Now applying it to the Atlantic Basin along 30W**
+8. 2 end-member labelling experiment
+        1. Each dot is a label based on salinity data, blank areas are areas with no water column data because there’re bathymetric features
+        2. Red is southern sourced water; follows CDW/NADW
+        3. Blue is northern sourced water; follows NADW
+        4. Similar structure to salinity contour plot 
+
+**Refining the concept of continuity by source, I've developped an approach to look at what I'm calling connectivity**
+9. Connectivity concept
+        1. Two water columns comparing slices
+        2. T-test comparison to determine probability that data is from same population
+        3. Lines to indicate connectivity
+
+**Applying it to the Atlantic--same transect!--was interesting but a bit messy**
+10. Connectivity figure
+        - Horizontal lines: recall that water column is necessarily well organized in layers with less dense water above and denser water below
+            - See this in mid and low latitudes where water is neatly organized and only horizontally connected in the T&S figure
+        - Vertical lines: recall that deep water formation water densifies and sinks to a new depth in the water column; local area of minimal density gradient
+            - See this in high latitudes where water is moving vertically so water column is relatively homogeneous
+        - PO4 provenance tracer:  PO4 doesn’t vary directly with density so while water will organize into very distinct layers by density, if they are from roughly the same place they will share a similar PO4 signature.  As a result, can get a sense of where an area of similar PO4 water is in interior and to some degree what water formation site its related to
+
+**all of this has me wondering...**
+11. Next Questions:
+	- Multiple tracers and clustering
+		- How can we use cluster analysis and multiple tracers to better define watermasses and which areas are classified differently depending on the combination of tracers used? 
+	- End-member analysis to trace flow trajectory
+		- Rather than use the two end-member model to identify the dominant contributor at each point along a line of longitude, is it possible to trace the path of a water mass through three dimensions based on a characteristic ratio or tracer value?
+	- Role of non-mixing processes on tracer distribution
+		- Can we apply a one dimensional mixing model trained on salinity data to characterize the amount extent to which biology rather than ocean circulation and mixing affect phosphate distribution?
+
+**Thanks for listening!**
