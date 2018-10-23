@@ -74,15 +74,20 @@ class rawPlotter():
         CS = ax.contour(xi,yi,zi,10,linewidths=0.5,colors='k')
 #                         vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
 
-        if type(share_limits) == list:
+#         print(type(share_limits))
+#         if type(share_limits) == type([]):
+#             print(share_limits)
+        try:
             CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
                             vmax=share_limits[1], vmin=share_limits[0], alpha = .7)
-        else:
+        except:
             if share_limits == True:
                 print(self.limits_dict[self.tracerlist[0]][0],self.limits_dict[self.tracerlist[0]][1])
                 CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
                         vmax=self.limits_dict[self.tracerlist[0]][1], vmin=self.limits_dict[self.tracerlist[0]][0], alpha = .7)
             else:
+                CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
+                                    vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
                 CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
                                     vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
     
@@ -137,11 +142,10 @@ class rawPlotter():
         maxLon, minLon = max( data._x), min( data._x)
         maxLat, minLat = max( data._y), min( data._y)
         figwidth = np.ceil((maxLon-minLon)/360 * 12)
-        print(figwidth)
         if 'column' in self.plotlist:
             fig.set_figwidth(6+figwidth)
         if self.plotlist == ['plan', 'plan']:
-            fig.set_figwidth(figwidth*2)
+            fig.set_figwidth(figwidth*2+5)
             fig.set_figheight(8)
         else:
             fig.set_figwidth(figwidth)
