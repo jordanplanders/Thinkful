@@ -34,8 +34,8 @@ class rawPlotter():
     '''
     
     gs_d = {'section':3, 'plan':2, 'column':1, 'other': 1}
-    units_dict = {'temperature': '$^\circ$C', 'oxygen': 'ml/l', 'aou': 'ml/l', 'longitude': '$^\circ$E', 'salinity': '(psu)', 'nitrate': '$\mu$mol/l', 'depth': 'm', 'phosphate': '$\mu$mol/l', 'latitude': '$^\circ$N', 'oxygen_saturation': '%'}
-    limits_dict = {'temperature': [0, 28], 'oxygen': [0, 10], 'aou': [0,7], 'longitude': [-179, 179], 'salinity': [32, 36.4], 'nitrate': [0,48], 'depth': [0,6000], 'phosphate':[0,4], 'latitude': [-90,90]}
+    units_dict = {'temperature': '$^\circ$C', 'oxygen': 'ml/l', 'aou': 'ml/l', 'longitude': '$^\circ$E', 'salinity': '(psu)', 'nitrate': '$\mu$mol/l', 'depth': 'm', 'phosphate': '$\mu$mol/l','po4_star': '$\mu$mol/l', 'latitude': '$^\circ$N', 'oxygen_saturation': '%'}
+    limits_dict = {'temperature': [0, 28], 'oxygen': [0, 10], 'aou': [0,7], 'longitude': [-179, 179], 'salinity': [32, 36.4], 'nitrate': [0,48], 'depth': [0,6000], 'phosphate':[0,4],'po4_star':[0,4], 'latitude': [-90,90]}
     
     def __init__(self, plotlist, tracerlist):
         self.plotlist = plotlist
@@ -88,8 +88,6 @@ class rawPlotter():
             else:
                 CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
                                     vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
-                CS = ax.contourf(xi,yi,zi,15,cmap=plt.cm.rainbow, 
-                                    vmax=abs(zi).max(), vmin=abs(zi).min(), alpha = .7)
     
         return CS, ax
     
@@ -126,7 +124,7 @@ class rawPlotter():
             fig.set_figwidth(6)
             
         ax.scatter(data._feat_data, data._d,  color='black')
-        ax = self.make_insetmap(ax, False, data._feat_data, data._d, data._lonLat_params, 'column')
+        ax = self.make_insetmap(ax, False, data.cluster_d[tracer], data._d, data._lonLat_params, 'column')
         ax.set_xlabel(fig.get_axes()[-1].get_ylabel(), fontsize=axis_sz-3, labelpad = 0)
     
         # set tick parameters
@@ -163,7 +161,7 @@ class rawPlotter():
         else:
             share_limits = False
             
-        CS, ax = self.make_contours(x_coord, y_coord, data._feat_data, ax, share_limits)
+        CS, ax = self.make_contours(x_coord, y_coord, data.cluster_d[tracer], ax, share_limits)
         
         # label axes
         ax.set_ylabel(data._yLab, fontsize=axis_sz-3, labelpad = ylabpad)
@@ -207,7 +205,7 @@ class rawPlotter():
         else:
             share_limits = False
             
-        CS, ax = self.make_contours(x_coord, y_coord, data._feat_data, ax, share_limits)
+        CS, ax = self.make_contours(x_coord, y_coord, data.cluster_d[tracer], ax, share_limits)
         
         ax = self.make_insetmap(ax, None, x_coord, y_coord, data._lonLat_params, 'raw')
         
