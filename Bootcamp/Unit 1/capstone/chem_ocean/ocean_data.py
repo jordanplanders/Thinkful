@@ -189,12 +189,34 @@ class water_column():
         depth = ax[0]
         
         # two endmember mixing model
+#         if mode == 'two_endmember':
+#             mixing_ratios = [np.zeros(2) for ik in range(len(ax))]
+#             u_char = min( self._feat_data_avgd) 
+#             l_char = max(self._feat_data_avgd)
+#             for ik in range(len(ax)):
+#                 mixing_ratios[ik][0] = max(min((self._feat_data_avgd[ik]-l_char)/(u_char-l_char), 1), 0)
+#                 mixing_ratios[ik][1] = 1-mixing_ratios[ik][0]
+#                 if mixing_ratios[ik][0] >= .5:
+#                     color.append(colors[0][0])
+#                 else:
+#                     color.append(colors[0][1])
+#                 ik+=1
+        
+        # two endmember mixing model (fix the north/south problem, assumes _x is latitude)
         if mode == 'two_endmember':
             mixing_ratios = [np.zeros(2) for ik in range(len(ax))]
             u_char = min( self._feat_data_avgd) 
+            u_char_lat = self._ax_avgd[self._feat_data_avgd == u_char]
             l_char = max(self._feat_data_avgd)
+            l_char_lat = self._ax_avgd[self._feat_data_avgd == l_char]
+            if u_char_lat > l_char_lat:
+                s_char = l_char
+                n_char = u_char
+            else:
+                s_char = u_char
+                n_char = l_char
             for ik in range(len(ax)):
-                mixing_ratios[ik][0] = max(min((self._feat_data_avgd[ik]-l_char)/(u_char-l_char), 1), 0)
+                mixing_ratios[ik][0] = max(min((self._feat_data_avgd[ik]-n_char)/(s_char-n_char), 1), 0)
                 mixing_ratios[ik][1] = 1-mixing_ratios[ik][0]
                 if mixing_ratios[ik][0] >= .5:
                     color.append(colors[0][0])
