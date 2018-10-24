@@ -52,8 +52,11 @@ class dataFetcher():
         _feat_data = _feat_data[~mask]
         self._feat_data = np.array([_feat_data[ik][0] for ik in range(len(_feat_data))])
         
-        for ik, name in enumerate(_in_var_names): #updates cluster_d with masking, does not fix x,y,d
+        for ik, name in enumerate(_in_var_names):
             cluster_d[name] = _feat_data[:, ik]
+        cluster_d[_x_var] = self._x
+        cluster_d[_y_var] = self._y
+        cluster_d['depth'] = self._d
             
         self.cluster_d = cluster_d
         self._xLab = _x_var
