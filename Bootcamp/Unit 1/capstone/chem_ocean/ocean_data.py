@@ -126,12 +126,18 @@ class water_column():
         self._d = dataset._d
         self._x = dataset._x
         self._y = dataset._y
-        self._feat_data = dataset._feat_data
+        if 'tracer' in kwargs:
+            self._feat_data = dataset.cluster_d[kwargs['tracer']]
+        else:
+            self._feat_data = dataset._feat_data
         self.ordered_by = 'd'
         ax = self._d
         
         if 'depth' in kwargs: #creates a horizontal water column at some depth 
-            self._feat_data = dataset._feat_data[dataset._d == kwargs['depth']]
+            if 'tracer' in kwargs:
+                self._feat_data = dataset.cluster_d[kwargs['tracer']][dataset._d == kwargs['depth']]
+            else:
+                self._feat_data = dataset._feat_data[dataset._d == kwargs['depth']]
             self._x = dataset._x[dataset._d == kwargs['depth']]
             self._y = dataset._y[dataset._d == kwargs['depth']]
             self._d = dataset._d[dataset._d == kwargs['depth']]
