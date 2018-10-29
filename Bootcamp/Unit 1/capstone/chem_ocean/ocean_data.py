@@ -129,6 +129,7 @@ class water_column():
         self._d = dataset._d
         self._x = dataset._x
         self._y = dataset._y
+        
         if 'tracer' in kwargs:
             self._feat_data = dataset.cluster_d[kwargs['tracer']]
         else:
@@ -168,6 +169,8 @@ class water_column():
         self.extrema_d2 = []
         self.mixing_labels = []
         self.mixing_ratios = []
+        self.n_char = None
+        self.s_char = None
         
     def smooth_data(self):
 
@@ -183,6 +186,22 @@ class water_column():
 
         self._feat_data_smooth_d1 = np.gradient(self._feat_data_smooth,self._ax_smooth)
                 
+    def get_endmembers(self, mode):
+        if mode == 'two_endmember':
+            u_char = min( self._feat_data_avgd) 
+            u_char_lat = self._ax_avgd[self._feat_data_avgd == u_char]
+            l_char = max(self._feat_data_avgd)
+            l_char_lat = self._ax_avgd[self._feat_data_avgd == l_char]
+            if u_char_lat > l_char_lat:
+                s_char = l_char
+                n_char = u_char
+            else:
+                s_char = u_char
+                n_char = l_char
+                
+            self.s_char = s_char
+            self.n_char = n_char
+        
     def get_mixing_labels(self, mode):
         ax = self._ax_avgd
         
@@ -207,7 +226,6 @@ class water_column():
         
         # two endmember mixing model (fix the north/south problem, assumes _x is latitude)
         if mode == 'two_endmember':
-            mixing_ratios = [np.zeros(2) for ik in range(len(ax))]
             u_char = min( self._feat_data_avgd) 
             u_char_lat = self._ax_avgd[self._feat_data_avgd == u_char]
             l_char = max(self._feat_data_avgd)
@@ -218,6 +236,8 @@ class water_column():
             else:
                 s_char = u_char
                 n_char = l_char
+            
+            mixing_ratios = [np.zeros(2) for ik in range(len(ax))]
             for ik in range(len(ax)):
                 mixing_ratios[ik][0] = max(min((self._feat_data_avgd[ik]-n_char)/(s_char-n_char), 1), 0)
                 mixing_ratios[ik][1] = 1-mixing_ratios[ik][0]
