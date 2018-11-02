@@ -218,12 +218,12 @@ Take the following scenarios and describe how you would make it testable and tra
 	- CASE statemnts go in the SELECT column and indicate what value to return given a conditional statment then aliased 
 #### Exercises:
  https://gist.github.com/jordanplanders/f5d960fa280c27d5772a93b6bd268bf0
- -- 1. What are the three longest trips on rainy days?
+ -- 1. What are the three longest trips on rainy days?  
 SELECT 
 	trips.trip_id,
 	weather.date,
 	trips.duration, 
-	weather.events
+	weather.events  
 FROM 
 	trips 
 JOIN 
@@ -330,12 +330,27 @@ ORDER BY
 	date 
 LIMIT 100;
 ### Project 6: Airbnb Cities
-- What's the most expensive listing? What else can you tell me about the listing?
-		WITH max_price_list AS (SELECT * from calendar WHERE cast(price as float) >0 ORDER BY cast(price AS float) DESC LIMIT 1)
-		SELECT listings.neighbourhood, listings.room_type, listings.minimum_nights, max_price_list.date, max_price_list.price FROM listings JOIN max_price_list ON cast(max_price_list.listing_id AS int) = listings.id;
+- What's the most expensive listing? What else can you tell me about the listing?  
+		
+		WITH max_price_list AS (
+			SELECT * from calendar 
+			WHERE cast(price as float) >0 
+			ORDER BY cast(price AS float) DESC 
+			LIMIT 1)
+			
+		SELECT 
+			listings.neighbourhood, 
+			listings.room_type, 
+			listings.minimum_nights, 
+			max_price_list.date, 
+			max_price_list.price 
+		FROM listings 
+		JOIN max_price_list 
+		ON cast(max_price_list.listing_id AS int) = listings.id;
 
 		Calabasas	Entire home/apt	2	2018-12-22	61000.00
-- What neighborhoods seem to be the most popular?
+- What neighborhoods seem to be the most popular?  
+		
 		WITH taken_list as (
 			SELECT 
 				count(*) AS num_taken_list, 
@@ -362,17 +377,17 @@ LIMIT 100;
 		Long Beach	86799
 		Santa Monica	67395
 
-- What time of year is the cheapest time to go to your city? November 
+- What time of year is the cheapest time to go to your city? November  
 		SELECT 
 			AVG(cast(price AS float)),
-			substring(date, 6, 2) AS mo 
-		FROM calendar 
+			substring(date, 6, 2) AS mo  
+		FROM calendar  
 		GROUP BY substring(date, 6, 2);
 		
 		average price		month
 		231.06087495398208	11
 		
-- What about the busiest? November
+- What about the busiest? November  
 		WITH freerooms AS(
 			SELECT 
 				COUNT(*) AS free, 
