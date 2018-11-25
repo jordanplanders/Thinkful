@@ -596,8 +596,6 @@ Problem: Students cheat on exams.  By using three versions of an exam, it is mor
 Potential Solution: Using multiple exam versions is a reasonable strategy for combatting this problem, however it should be executed and calibrated as carefully as possible.  Exams should be collated ABC and passed out to students only once all are present and seated (preventing potential clusters of A exams, for example).
 
 Experiment: Once the test has been administered, results should be examined for student subgroups. Did one test have notable higher or lower scores than the other two? (ANOVA?)  Did students deviate notably and inexplicably from their historical performance? (paired t-tests between past exam scores and current scores?) Making sure each test taker was surrounded by students taking different versions by passing out the exam carefully, should significantly reduce the probability of cheating occuring on a particular version.  
-
-
 ### Assignment 1-4-6: AB Testing and t-tests
 - Evaluating A/B Test Data using tests
 	- t-test is a statistical test that calculates the size of the difference between two means given [their variance and sample size] noise in the data
@@ -620,8 +618,7 @@ Experiment: Once the test has been administered, results should be examined for 
 	- p<.05
 		- is the rule of thumb; that means that there is a  1 in 20 chance of returning a false positive
 		- corresponds to the two sigma (standard deviation) mark
-		- not ubiquitous; there are fields where you have to be much more sure than p = .05 and the threshold value will be much lower
-		
+		- not ubiquitous; there are fields where you have to be much more sure than p = .05 and the threshold value will be much lower	
 ### Assignment 1-4-8: T-tests and Philosophy of NHST
 - T-values
 	- the default t-test is two tailed, which is to say it's the probability of getting a more extreme value in either direction.  
@@ -629,6 +626,139 @@ Experiment: Once the test has been administered, results should be examined for 
 - Philosophy of NHST (Null Hypothesis significance testing)
 	- p-value represents the probability of getting the data you have if the null hypothesis were true in the population; put another way, the probability of pulling this data by random chance from the same population that is unaffected
 	- no mention of an "actual hypothesis", but rather an acceptance of "not not rejectign the null hypothesis" is tantamount to accepting the hypothesis
-	- However, you can't truly limit the possibility space to two outcomes so we can't prove taht our hypothesis occured adn that the effect wasn't due to some other factor.  Instead we stick with disproving a null hypothesis and stating that the results support the hypothesis we put forward
-	
+	- However, you can't truly limit the possibility space to two outcomes so we can't prove taht our hypothesis occured adn that the effect wasn't due to some other factor.  Instead we stick with disproving a null hypothesis and stating that the results support the hypothesis we put forward	
 ### Assignment 1-4-9: Experiementation guided example
+
+# Unit 2
+## Lesson 1: Preparing to Model
+### Assignment 2-1-1: What is a model?
+- statistical model: a simplified mathematical representation of the data scientist's best guess about the underlying processes that created the data
+	- simplified: prioritize information dense features, viz. the ones that explain the most variance. Probably exclude low variance features in the name of making the model computationally cheaper
+	- mathematical representation: series of formulas
+	- best guess: based on our bester understanding and testing of the available information (likely will need to be update as more information becomes available)
+	- underlying process: @todo
+- Models and Math
+	- pick models that are suited to characteristics of problem (contiuous data, categorical data, two-variable, multivariate)
+### Assignment 2-1-2: Formulating a research question
+- model: mathematical expression of a research question; different types of research questions beg for different kinds of models
+	- What is already known about this topic? Check out how others have approached similar questions
+	- What sort of data, or ways to collect data, are available to me on this topic? Do not engage without data to work with...
+	- What skills do I have? Don't take on quesitons you can't cope with in the alloted time
+	- Can this question be answered using quanitities or probabilities? The question must be amenable to a numeric solution.
+	- Can this research question be asked in one sentence?  If not, refine it.
+### Project 2-1-3: Drill: Formulating a good research question	https://docs.google.com/document/d/1FFr1JjqG21LxhLtED01rYJMPCGTQ-8WWcqUIZKPbzEY/edit?usp=sharing
+	1. What is the 1994 rate of juvenile delinquency in the U.S.? [Good; regression]
+	2. What can we do to reduce juvenile delinquency in the U.S.? [What are the most effective approaches to reducing juvenile deliquency in the U.S.?]
+	3. Does education play a role in reducing juvenile delinquents' return to crime? [Good; binary classifier]
+	4. How many customers does AT&T currently serve in Washington, DC? [Bad?  Isn't this a fact, rather than a reseach question?]
+	5. What factors lead consumers to choose AT&T over other service providers? [Good; PCA]
+	6. How can AT&T attract more customers? [Bad; Which of the following methods are most effective in attracting customers?]
+	7. Why did the Challenger Shuttle explode? [Good?]
+	8. Which genes are associated with increased risk of breast cancer? [Good]
+	9. Is it better to read to children at night or in the morning? [Good]
+	10. How does Google’s search algorithm work? [Bad, though I'm not sure how to fix it]
+### Assignment 2-1-4: Exploring the data
+- Univariate (looking at one variable at a time)
+	- how many variables?
+	- how many data points?
+	- what kind (categorical, continuous, ordinal)
+	- do any variables have known distributions
+	- missing data?  How much and what kind?
+	- variance in each of the variables
+- Bivariate
+	- continuous-continuous
+		- scatterplot (scatterplot matrix)
+			- sns.PairGrid(df.dropna(), diag_sharey= False)
+		- lmplot (scatterplot with regression line and r**2 value; 
+			- sns.lmplot(data = df, x = "", y = "")
+		- correlation ranges from -1 (strong relationship, as one goes up, the other goes down), to 1 (both go up together))
+			- sns.heatmap(df.corr())
+		- NB: check for two-dimensional outliers that represent unusual combinations of values
+	- continuous-categorical
+		- estimate the value of a continuous variable for each value of a categorical variable
+			- sns.boxplot()
+			- sns.violinplot()
+			- sns.stripplot()
+		- FacetGrid is a grid that shows a particular pair of variable broken out by one or two categories
+			- g = sns.FacetGrid(df, col = variable) 
+				g = g.map(plottype, x_label, y_label)
+	- categorical-categorical
+		- relates the number of counts for a category for each label in another category
+			- sns.countplot(data = df x = variable, hue = variable2)
+			- pd.crosstab(df.variable1, df.variable2) table of counts giving the number of datapoints for each combination
+		- chi-square test- indicate whether one combination of levels is significantly larger or smaller than the rest (rather than compare the means of two data sets, compare the counts of a variable in two datasets to see if they could have come from the same population)
+		- NB: check for subgroups with very small counts
+- Interpretting pairwise plots and stats
+	- flag two-dimensional outliers
+	- identify variables that are redundant to each other (variables that are strongly correlated)
+### Project 2-1-5: Feature Engineering
+- Feature- variable that hs been transformed in ways as to make it well suited to work within a model and explain variance in the outcome of interest
+- Working with categorical variables
+	- translate a categorical variable with x labels into x-1 numerical features 
+		- reference value- level without a feature
+		-  can group categorical variables (e.g. Norway, Sweden into Nordic)
+- Changing variable types
+	- can make binaries out of continuous variables (e.g. some are less than some value and some are more than taht value )
+- Numerical variable types
+	- Ordinal variables- ordering; so doesn't give information about the difference between one and the next, just that one was first and the next was after
+	- Interval variables- variables that indicate rank order and distance but don't have an absolute zero point
+	- ratio variables- variables that indicate rank, distance and meaninful absolute zero value
+#### Drill: categorize each variable from the ESS dataset
+		1. cntry (country)- categorical
+		2. year- numeric, ratio
+		3. idno (respondent's identification number)- categorical (no indication that these were assigned with order significance)
+		4. tvtot (tv watching per avg wkday)- numeric, ratio
+		5. ppltrst (most people can be trusted?)- numeric, ordinal
+		6. pplfair (most people are fair?)- numeric, ordinal
+		7. pplhlp (most people are helpful)- numeric, ordinal
+		8. happy (how happy are you?)- numeric, ordinal
+		9. sclmeet (how often do you meet friends etc?)- numeric, ordinal
+		10. sclact (take part in social activities)- numeric, ordinal
+		11. gndr (gender)- categorical
+		12. agea (age)- numeric, ratio
+		13. partner- categorical
+- Combining two or more highly-correlated variables
+	- want minimum set of features that describe the space, therefore want features that are correlated with the outcome, but uncorrelated with each other 
+	- average highly correlated variables or drop one
+	- use Principal Component Analysis (PCA) to reduce the correlated set of variables
+- Dealing with non-normality
+	- if normality is a model-assumption (and it often is) it may be necessary to transform (e.g. log, sqrt, or invert) variables so that they have more normal distributions
+- creating linear relationships
+	- many models assume the relationship between a feature and an outcome is linear so in order to accommodate it in a model it may be useful to work with it as a transformation (square, cube, etc)
+- making variables easier to understand in light of the research question
+	- re-encode a variable into a feature that matches the terminology of the research question (make sure scaling is such that positivde correlations are intuitive)
+- Leveling the playing field
+	- some models assume all features are scaled to the same bounds, so may need to rescale accordingly (usually to a mean of 0 and a standard deviation of 1) 
+		- preprocessing.scale(df)
+- All about interactions 
+	- may want to build inferred features (?!) by multiplying two features together that together might correlate with another feature
+### Assignment 2-1-6: Principle component analysis (PCA)
+- What is PCA? complexity reduction technique that tries to reduce a set of variables down to a smaller set of components that represetn most of the information in the variables
+	- indetifies sets of variables that share variance and create a component to represent that variance 
+	- lose variance in exchange for a smaller set of features (computationally cheaper, better satisfies requirement of features not being correlated, less vulnerable to overfitting)
+- Things get messy
+	- need variables to be normally distributed
+	- relationships between variables are linear
+	- correlations are weak (but non-zero) to moderately strong but less than ~.8
+	- things can get unstable if it's fewer than three variable that are fairly tightly correlated, but also if it's a lot of variables that are highly correlated
+- PCA: Rotation in space
+	- take a dataset of n variables as an n-dimensional space
+	- PCA standardizes variables so that mean = 0 and standard dev = 1 (so all variables go through the origin and share variance)
+	- choose a set of axes so as to minimize the distance between the data points and the axis
+- PCA: math (ish)
+	- identify the axis (eigenvectors) that minimize the variance, then multiply the feature matrix by the transformation matrix
+### Assignment 2-1-7: Feature Selection
+- good practice to split dataset into a training and a test set and design feature selection on training set (not on both parts)
+- Filter Methods: evaluate each feature seperately and assign a score that is used to rank features such that scores above or below (or both) some point are discarded
+	- select relevant features but also likely to produce redundant features because they don't weed out features that are highly correlated to each other
+	- e.g. variance threshold, correlation to target variable
+- Wrapper Methods: select sets of features based on performance; construct different sets and evaluate based on predictive power in a model (in comparison to performance of other sets)
+	- forward passes: algorithm begins with no features and they are added one at a time, keeping the features that have the highest predictive power
+	- backward passes: algorithm begins with all features and they are removed one at a time, removing the feature that has the least predictive power
+
+	- computationally expensive, feature set is never re-evaluated (?)
+- Embedded methods: select features based on a fitting method, e.g. in regression where there's a penalty against complexity and the fitting objective is to minimize a the cost function
+## Lesson 2: Building your first model: Naive Bayes
+## Lesson 3: Evaluating classifiers
+## Lesson 4: Linear Regression
+## Lesson 5: Evaluating Linear Regression models
