@@ -759,6 +759,27 @@ Experiment: Once the test has been administered, results should be examined for 
 	- computationally expensive, feature set is never re-evaluated (?)
 - Embedded methods: select features based on a fitting method, e.g. in regression where there's a penalty against complexity and the fitting objective is to minimize a the cost function
 ## Lesson 2: Building your first model: Naive Bayes
+### Assignment 1: Regression v. classification
+- When building a model, there is always a kind of outcome we are intersted in: a label (categorical) or a value.  This determines whether we need a classifier or a regression model
+- Classification: returns one (or more) categorical value, a discrete value from a specified set
+	- assigns a category to a given test observation
+	- assigns a probability measure for each category
+	- N.B. the only outcomes that can be returned are ones that have been seen in the training set
+- Regression: returns a numeric value from either a bounded or unbounded number line
+### Assignment 2: Algorithms intro.
+- What is an algorithm? A set of instructions for a computer (efficient is better than not...)
+- Algorithm efficiency and complexity
+	- scaling: number of steps = scaling factor (e.g. linear, quadratic, etc.)
+- Big O Notation: a way to describe most inefficient performance (at worst, O(elements^num_steps)), or complexity
+	- how efficiently the algorithm scales with additional data; sets an upper bound on the size dataset one can reasonably work with
+### Project 3: Drill: Regression or classification
+1. The amount a person will spend on a given site in the next 24 months. (regression)
+2. What color car someone is going to buy. (classifier)
+3. How many children a family will have. (regression, though plausibly either)
+4. If someone will sign up for a service. (classifier)
+5. The number of times someone will get sick in a year. (regression, though plausibly either)
+6. The probability someone will get sick in the next month. (classifier)
+7. Which medicine will work best for a given patient. (classifier)
 ## Lesson 3: Evaluating classifiers
 ## Lesson 4: Linear Regression
 ## Lesson 5: Evaluating Linear Regression models
