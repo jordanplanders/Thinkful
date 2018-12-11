@@ -781,5 +781,92 @@ Experiment: Once the test has been administered, results should be examined for 
 6. The probability someone will get sick in the next month. (classifier)
 7. Which medicine will work best for a given patient. (classifier)
 ## Lesson 3: Evaluating classifiers
+### Assignment 1: Accuracy and error types
+- Success Rate: the most basic measure of success is obviously how often the model was correct (compare the target labels to the predicted labels).  However, not all errors are created equal so we are concerned with what gave rise to the incorrect predictions; important to be able to inform how to deal with the error as well as potentially how to fix the error in the model (e.g. by adding more features, tuning parameters, etc.)
+- Confusion Matrix: matrix that shows the count of each possible permutation of target and prediction (predicted outcome on one side, actual outcome on the other)— allows us to identify how many negative-negative, positive-positive and false positives (positive when should have been negative) and false negatives (negative when should have been positive)
+	- From sklearn.metrics import confusion_matrix confusion_matrix(target, y_pred)
+	- False positive  is also referred to as a “type I error” or “false alarm”
+	- False negative is also referred to as a “type II error” or “miss”
+	- Sensitivity: percentage of positives correctly identified (agree_pos/(agree_pos+false_neg))
+	- Specificity: percentage of negatives correctly identified (agree_neg/(agree_neg+false_pos))
+	- top row is [agree_neg, false_pos], second row is [false_neg, agree_pos]
+### Assignment 2: Class imbalance
+- Ideally the training set would contain an equal number of instances of each outcome so that the trained model has a good idea of what makes for each label and doesn’t over predict the dominant label.  Put another way, if a rare instance has specific traits, but those traits are also seen in a dominant class, the model won’t learn to associate the rare traits with the rare class. (E.g. rare disease prediction, fraud detection)
+- Baseline Performance: It’s important to consider the dominant class rate.  If the model doesn’t do better than the percent of the dominant class represented in the training set, that means it could do as well or better by just predicting the dominant class all the time
+- Dealing with class imbalance:
+	- Ignore it: engineer features that hopefully highlight rare class and hope for the best
+	- Change the sampling: deliberately over sample the minority class/under sample the majority class
+	- Probability outputs: some models like SVM or log regression can return probability of different labels and use different cut offs or more complex rules to decide what the final label should be 
+	- Cost functions for errors: describes how errors are not equal so (for example) the cost of a type II error can be twice the cost of a type I error (not easy to do with the sklearn NB)
+### Assignment 3: In sample evaluation and cross validation
+- Overfitting- when the model is excessively complex such that it describes the training set perfectly rather than the generalized underlying relationship; we need the model to work on the data we haven’t seen yet
+- Holdout Groups: essentially set up a test set separate from a training set; the model needs to perform well on the test set which was not included in the training of the model. The higher the variance, the larger the training set needs to be.
+	- From sklearn.model_selection import train_test_split; X_train, X_test, y_train, y_test = test_train_split(data, target, ...)
+- Cross Validation: if there is enough data, break the training set up into n folds (usually 5), and train the model on n-1 folds and test on the nth fold  (Leave One Out is when the number of folds= number of observations—usefully your concerned that one observation will skew the model).  Repeat this for every combination of folds and compare the accuracy.  If accuracies are similar then the model is probably not overfitting
+	◦ From sklearn.model_selection import cross_val_score; cross_val_score(model_instance, data, target, cv=n_folds)
+	- The only score that it will return is accuracy which doesn’t offer a lot of insight into the type of error so people often code up their own versions
+- What’s a good score? check for class imbalance and the type of errors to really assess  
+### Project 4: Challenge: Iterate and evaluate your classifier 
+- test for overfitting using cross validation
+- Already used test_train_split
+- Already tuned feature set to remove words that appear in both the positive and negative tfidf sets
+	- Train model on different length ngrams 
+	- Train model on positive words not subtracting off the negative words
+	- Train model on (positive words tfidf) - (negative words tfidf) 
+	- Train model on (positive words tfidf) - (negative tfidf + count_vectorizer)
+	- Train model on (positive words tfidf) - (negative words count_vectorizer)
+	- Train model on (positive tfidf + count_vectorizer) - (negative tfidf)
+	- Train model on (positive tfidf + count_vectorizer) - (negative count_vectorizer)
+	- Train model on (positive words tfidf + count_vectorizer) - (negative tfidf + count_vectorizer)
+- Run loop and report accuracy of model with all but one feature for watch feature to assess how important each feature is to model performance 
+## Lesson 4: 
+### Assignment 1: Simple linear regression @todo incomplete pdf
+- regression alllows us to predict continuous variables 
+- Simple linear regression
+	- There are lots of regression techniques, but ordinary least squares (OLS) is far and away the most common and is often referred to as just “regression”
+	- Works by finding estimators of coefficients that describe the relationships between variables in a formula you define
+	- Simple linear regression is of the form y = alpha + beta*x where our objective is to estimate alpha and beta
+- Least squares
+	- Seeks to estimate coefficients by minimizing error  or residual (sum of the squared distances between each datapoint and the fit line— the type of regression is often named for the distance metric used to calculate the residual) 
+	- Regr = linear_model.LinearRegression(); regr.fit(X_train, y_train); y_pred = regr(X_test)
+• 
+### Project 2: Multivariable Regression @todo incomplete pdf, need to complete project 
+- Multivariable Least Squares: when a least squares regression has more than one independent variable (AKA Multivariable least squares linear regression, multiple linear regression, Multivariable regression—NOT Multivariate regression which involves multiple dependent variables)
+	- All relationships between coefficients are linear; so an equation will look like y = alpha + c_1*x_1 + ...+ c_n *x_n 
+- Categorical Variables: each label has its own variable and thus its own coefficient.  For example, suppose we are calculating rent and our dataset has features: square footage, bedrooms, bathrooms, state.  The first three are number... no problem, the categorical variable (state) has to be split into one variable for each state included in data set, so the new feature set might look like: square footage, bedrooms, bathrooms, WA, CA, OR with each data point having a 1 for the state where the  property is, and a 0 for the other state labels (labels should be mutually exclusive).  By this reasoning linear regression can estimate a coefficient for each of the states and we can correctly note that being in CA is a financially insane place to rent.  
+- Linear doesn’t have to mean lines: while the relationships between the coefficients are linear, it’s fair game for the relationships between the variables to not be; e.g. y = alpha + c_1*x + c_2*x^2 (so here x_1 =x and x_2 = x^2)
+
+### Project 3: Explanatory power: assumptions of linear regression @todo incomplete pdf, need to complete project
+- The extraordinary power of explanatory power:  multiple linear regression both allows us to predict future outcomes, but also provides insight into the relationships between the underlying variables and using the r^2 value ([0,1]), a sense of how much of the variance in the data the model was able to explain and hence how much confidence we should have in our interpretation of the model. 
+	- Low r^2 indicates a poor fit
+	- High r^2 is good unless it is very high in which case we should be concerned about overfitting
+- Assumptions of multivariable linear regression
+	- Linear relationship: the coefficients have to be linearly related.  Sometimes we can do something non linear to a feature to make the relationships between features linear
+	- Multivariate normality: the error from the model (model predictions-actual target values) should be normally distributed.  Outliers and skewness in the distribution of error can often be traced back to outliers
+	- Homoscedasticy: error plotted against predicted values should be uniform.  It is concerning if there is considerably more error when predicting high or low values 
+	- Low multicollinarity: correlations among feature should be low or nonexistent 
+
+### Project 4: Challenge: make your own regression model @todo need to complete project 
+
+## Lesson 5:
+### Assignment 1: Test Statistics @todo incomplete pdf, need to complete project
+- Test Statistics
+	- Can evaluate:
+		- Whether the model, as a whole, explains more variance in the outcome than a model with no features 
+		- Whether each individual feature in the model adds explanatory power
+	- Whole model: F-test
+		- Represents the ratio between the unexplained variance of the model and the unexplained variance of a reduced model for comparison
+			- Unexplained model variance: SSE_F = sum from 0 to n( (y_actual- y_predicted)^2)
+			- Unexplained reduced model variance: SSE_R = sum from 0 to n( (y_actual- y_mean)^2) 
+			- Number of parameters in the model = p_F (2 in the case of simple linear regression)
+			- Number of parameters in the reduced model = p_R (1 in this case)
+			- Number of data points: n
+			- Degrees of freedom of Unexplained model variance (SSE_F): df_F = n-p_F
+			- Degrees of freedom of Unexplained reduced model variance (SSE_R): df_R = n-p_R
+		- F = (SSE_F-SSE_R)/(df_F-df_R) * df_R/SSE_F
+		- A parameter is any predictor in the model (intercept and features)
+		- Degrees of freedom: amount of information untapped to estimate variability after all parameters have been estimated
+			- Low degrees of freedom are a flag for overfitting
+
 ## Lesson 4: Linear Regression
 ## Lesson 5: Evaluating Linear Regression models
