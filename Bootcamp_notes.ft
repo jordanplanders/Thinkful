@@ -819,8 +819,8 @@ Experiment: Once the test has been administered, results should be examined for 
 	- Train model on (positive tfidf + count_vectorizer) - (negative count_vectorizer)
 	- Train model on (positive words tfidf + count_vectorizer) - (negative tfidf + count_vectorizer)
 - Run loop and report accuracy of model with all but one feature for watch feature to assess how important each feature is to model performance 
-## Lesson 4: 
-### Assignment 1: Simple linear regression @todo incomplete pdf
+## Lesson 4: Linear Regression
+### Assignment 1: Simple linear regression
 - regression alllows us to predict continuous variables 
 - Simple linear regression
 	- There are lots of regression techniques, but ordinary least squares (OLS) is far and away the most common and is often referred to as just “regression”
@@ -829,14 +829,15 @@ Experiment: Once the test has been administered, results should be examined for 
 - Least squares
 	- Seeks to estimate coefficients by minimizing error  or residual (sum of the squared distances between each datapoint and the fit line— the type of regression is often named for the distance metric used to calculate the residual) 
 	- Regr = linear_model.LinearRegression(); regr.fit(X_train, y_train); y_pred = regr(X_test)
-• 
-### Project 2: Multivariable Regression @todo incomplete pdf, need to complete project 
+		regr.coef\_, regr.intercept\_ will yield info about the regression 
+- Predicting with Simple Linear Regression: with simple linear regression estimates of coefficients yield a y-intercept and a slope (colloqually).  The domain of the equation is all reals even if that isn't the domain of the problem at hand though so heads up.
+### Project 2: Multivariable Regression 
 - Multivariable Least Squares: when a least squares regression has more than one independent variable (AKA Multivariable least squares linear regression, multiple linear regression, Multivariable regression—NOT Multivariate regression which involves multiple dependent variables)
 	- All relationships between coefficients are linear; so an equation will look like y = alpha + c_1*x_1 + ...+ c_n *x_n 
 - Categorical Variables: each label has its own variable and thus its own coefficient.  For example, suppose we are calculating rent and our dataset has features: square footage, bedrooms, bathrooms, state.  The first three are number... no problem, the categorical variable (state) has to be split into one variable for each state included in data set, so the new feature set might look like: square footage, bedrooms, bathrooms, WA, CA, OR with each data point having a 1 for the state where the  property is, and a 0 for the other state labels (labels should be mutually exclusive).  By this reasoning linear regression can estimate a coefficient for each of the states and we can correctly note that being in CA is a financially insane place to rent.  
-- Linear doesn’t have to mean lines: while the relationships between the coefficients are linear, it’s fair game for the relationships between the variables to not be; e.g. y = alpha + c_1*x + c_2*x^2 (so here x_1 =x and x_2 = x^2)
+- Linear doesn’t have to mean lines: while the relationships between the coefficients are linear, it’s fair game for the relationships between the variables to not be; e.g. y = alpha + c_1*x + c_2*x^2 (so here x_1 =x and x_2 = x^2), but be careful not to over complicate the model to fit trainig data, overfitting is a problem here too.
 
-### Project 3: Explanatory power: assumptions of linear regression @todo incomplete pdf, need to complete project
+### Project 3: Explanatory power: assumptions of linear regression @todo need to complete project
 - The extraordinary power of explanatory power:  multiple linear regression both allows us to predict future outcomes, but also provides insight into the relationships between the underlying variables and using the r^2 value ([0,1]), a sense of how much of the variance in the data the model was able to explain and hence how much confidence we should have in our interpretation of the model. 
 	- Low r^2 indicates a poor fit
 	- High r^2 is good unless it is very high in which case we should be concerned about overfitting
@@ -844,12 +845,14 @@ Experiment: Once the test has been administered, results should be examined for 
 	- Linear relationship: the coefficients have to be linearly related.  Sometimes we can do something non linear to a feature to make the relationships between features linear
 	- Multivariate normality: the error from the model (model predictions-actual target values) should be normally distributed.  Outliers and skewness in the distribution of error can often be traced back to outliers
 	- Homoscedasticy: error plotted against predicted values should be uniform.  It is concerning if there is considerably more error when predicting high or low values 
-	- Low multicollinarity: correlations among feature should be low or nonexistent 
+	- Low multicollinarity: correlations among feature should be low or nonexistent (the model could attribute half the explanatory power to one variable and the other half to the other but underneath they two variables are telling the same story so this is not helpful if we are trying to explain the variance--as far as prediction goes, this might work fine)
+		- fixed by PCA (collapsing correlated variables into one)
+		- dropping correlated features
 
 ### Project 4: Challenge: make your own regression model @todo need to complete project 
 
-## Lesson 5:
-### Assignment 1: Test Statistics @todo incomplete pdf, need to complete project
+## Lesson 5: Evaluating Linear Regression models
+### Assignment 1: Test Statistics 
 - Test Statistics
 	- Can evaluate:
 		- Whether the model, as a whole, explains more variance in the outcome than a model with no features 
@@ -866,7 +869,102 @@ Experiment: Once the test has been administered, results should be examined for 
 		- F = (SSE_F-SSE_R)/(df_F-df_R) * df_R/SSE_F
 		- A parameter is any predictor in the model (intercept and features)
 		- Degrees of freedom: amount of information untapped to estimate variability after all parameters have been estimated
-			- Low degrees of freedom are a flag for overfitting
-
-## Lesson 4: Linear Regression
-## Lesson 5: Evaluating Linear Regression models
+			- Low degrees of freedom are a flag for overfitting or small sample
+			- Degrees of freedom define the F-distribution for the F-test
+		- Position of f-test value within the f-distribution is used to determine the p-value (probability of getting an f-test value that is equal or greater if there is no relationship between the outcome and parameters in the population; a significant p-value suggests that the model as a whole can explain some of the variance in the outcome
+		- Put another way, the f-test tests whether the r^2 of the model is different from zero
+	◦ Individual parameters: t-test: once there is a significant f-test, the next step is evaluating the performance of the individual parameters using a t-test that determines whether that parameter estimate is significantly different from zero
+		‣ Being statistically different from zero implies that that the variable explains a significant amount of unique variance in the outcome after controlling for the variance explained by the other parameters  
+		‣ Suppose there are three circles (red, blue, yellow) overlapping where yellow represents the outcome...
+			• The statistical test of significance of the blue circle on the outcome will be a matter of only the green area, and of the pink circle, only the orange area but neither one will include the area where all three overlap
+		‣ A model with high collinearity may very well yield an f-test that is significant without any significant features at all
+		‣ Sklearn.LinearRegression can be used for Multivariate linear regression but it’s difficult to extract p-values for individual parameters so we can use statsmodels as an alternative (different packages offer different pieces of additional information about the different models)
+			• Write out model formula in the following format:
+				◦ Linear_formula = ‘dependent_variable ~ dep_var1+dep_var2+...+dep_var3’
+			• Fit the model with:
+				◦ lm = smf.ols(formula=linear_formula, data=data).fit()
+			• model parameters:
+				◦ lm.params
+			• p-values as a significance test for each of the coefficients (can usually drop any parameters with pvalues >.05):
+				◦ lm.pvalues
+			• r^2
+				◦ lm.rsquared
+- Confidence Intervals
+	- the range of values within which our population parameter is likely to fall
+	- a 95% confidence interval means that if we were to resample our population, our population parameter would fall within these bounds 95% of the time
+	- so this allows us to make a statement not only about what to expect, but how confident we are that it will happen
+	- the wider the confidence interval, the less certain the estimate
+	- prstd, iv_l, iv_u = wls_prediction_std(lm)
+### Project 2: Challenge: Validating a linear regression @todo need to complete project
+### Project 3: Dimensionality Reduction in Linear Regression @todo incomplete pdf, need to complete project
+• Dimensionality reduction in Linear Regression
+	◦ Plight of too many features:
+		‣ Having lots of features makes a model take longer to train and longer to run and more prone to overfitting
+		‣ Variance in the features that is unrelated to the outcome may create noise in predictions (bonus: if the variance is shared among features in multicollinearity)... therefore it is also the case that more features may add more unrelated variance and thus noise
+		‣ Having more variables than data points leads to negative degrees of freedom (a no fly)
+	◦ For the sake of prediction (not helpful if you need to interpret the roles of individual parameters) use dimension reduction to make the feature space manageable.  
+		‣ Take a matrix of features X, and its reduced feature form R(X): the objective is to is to come up with transformation R such that the expected value of Y (predicted value) given X is the same as the expected value of Y (predicted value) given R(X)
+		‣ Similar to PCA, but in this case we aren’t trying to preserve all the variance in X, but rather the variance in X that is shared with Y
+• Partial least squares regression
+	◦ Basic idea: find the vector in X with the highest covariance with y, then choose a second vector orthogonal to the first that explains the highest covariance with y unexplained by first vector and so on, up to n vectors (the number of features in X)
+	◦ pls1= PLSRegression(n_components=desired_num_features
+	◦ pls1.fit(X,y)
+	◦ Y_PLS_pred = pls1.predict(X)
+	◦ pls1.score(X,y)
+### Assignment 4: The Gradient Descent Algorithm @todo incomplete pdf
+• regression finds the best model by minimizing the squared distance between each datapoint (the square removes issues around negative distances and penalizes more easily for larger distances)
+• When the model is simple, the cost function can be minimized completely with a system of equations.  However, other models are too complex to be minimized analytically like this so we have algorithms like gradient descent which minimizes the cost function using derivatives. 
+	◦ Initialize weights: w_0 = 0 (intercept), w = [0 for ik in range(training_examples)]
+	◦ Initialize convergence = False
+	◦ Run loop where as long as the weights haven’t converged
+# Unit 3
+## Lesson 1:
+### Project 1: KNN classifier @todo incomplete pdf, need to complete project
+• K Nearest Neighbors Classifiers: simplest example of calculating which data points are most similar to an observation
+	◦ Nearest Neighbor: find the closest known observation in our training data by some distance metric (typically we use Euclidean distance) and predict that our value has the same label 
+		‣ Greedy because have to calculate the distance from our point to every point in the set to find the datapoint with the smallest distance. 
+		‣ Not a trainable model because it’s just based on the direct relationship between unlabeled data and labeled data
+	◦ K-Nearest Neighbors: look at the k nearest neighbors and label based on majority rules (also yield the probability that the label is correct by votes_in_favor/k)
+		‣ Calculate distances to all points, choose k smallest, label data
+		‣ Mesh: surface for describing the zones of different labels
+			• Define the limits of the surface by solving for the min_x, max_x, min_y, max_y
+			• Initialize the mesh with a grid size between bounds
+			• Initialize and train the model where x1 and x2 are x and y coordinates and y is the label
+			• Run whole grid of points through the model
+			• Create and plot color mesh
+		‣ one would expect any new point falling in a given zone to be labeled accordingly
+### Project 2: Tuning KNN- normalizing distance, picking k @todo incomplete pdf, need to complete project
+• Tuning KNN: 
+	◦ Distance and Normalizing
+		‣ Implicit in the Euclidean distance metric is that the distance between all points is equal (for example, using “loudness” rather than “decibels”) and this is not always the case
+		‣ Also, if one dimension is on a wildly different scale than another, the model won’t care about the second variable
+		‣ Normalization
+			• Rescale: rescale everything to be between 0 and 1 (only works if the distances are linear to begin with and the data is known to be bounded so that rescaling to be between 0 and 1 does not impose an artificial boundary)
+			• Recalculate so that distance is in terms of standard deviations (z-scores) from the mean
+			• Not good practice to mix them in most cases
+	◦ Weighting
+		‣ In the vanilla version of KNN, all votes are counted as equal, which is reasonable when the data is densely populated
+		‣ However, when the k nearest neighbors are vastly different distances from the point in question, it may be questionable for all votes to count the same—perhaps weight by distance so that points are influenced according to their inverse distance to point in question
+			• KNeighborsClassifier(n_neighbors = 3, weights=‘distance’)
+### Project 3: KNN regression @todo incomplete pdf, need to complete project
+• KNN Regression
+	◦ Everything’s the same: Rather than taking the popular label, take the average of a given variable over the k closest points @what happens if there are more than k points with the same x value, how does the model choose which k are the closest?
+		‣ KNN= neighbors.KNeighborsRegressor(n_neighbors=k)
+		‣ KNN.fit(X, Y)
+		‣ (Can run a line with regular intervals through model to see regression line)
+		‣ (Can use the same weighting trick (weights=‘distance’))
+	◦ Validating KNN:
+### Project 4: Challenge: Model Comparison @todo complete project
+## Lesson 2
+### Assignment 1: Decision trees @todo incomplete pdf
+• Decision Trees
+	◦ Learning from questions
+		‣ Nodes: questions (either the root node (first node), interior nodes (follow up questions), leaf nodes (endpoints))
+		‣ The questions in the nodes are called rules
+			• Divides the data into a certain number (typically two) subgroups
+			• All data has to be accounted for, it cannot simply disappear 
+		‣ Links between nodes are paths or branches
+	◦ Entropy
+		‣ Shannon Entropy H is the weighted sum of log base two of the probabilities of all outcomes
+			• As we limit the possible number of outcomes, entropy decreases
+		‣ Information Gain: change in entropy from the original state to the weighted potential outcomes of the following state
