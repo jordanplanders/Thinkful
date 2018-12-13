@@ -897,20 +897,21 @@ Experiment: Once the test has been administered, results should be examined for 
 	- prstd, iv_l, iv_u = wls_prediction_std(lm)
 ### Project 2: Challenge: Validating a linear regression @todo need to complete project
 ### Project 3: Dimensionality Reduction in Linear Regression @todo incomplete pdf, need to complete project
-• Dimensionality reduction in Linear Regression
-	◦ Plight of too many features:
-		‣ Having lots of features makes a model take longer to train and longer to run and more prone to overfitting
-		‣ Variance in the features that is unrelated to the outcome may create noise in predictions (bonus: if the variance is shared among features in multicollinearity)... therefore it is also the case that more features may add more unrelated variance and thus noise
-		‣ Having more variables than data points leads to negative degrees of freedom (a no fly)
-	◦ For the sake of prediction (not helpful if you need to interpret the roles of individual parameters) use dimension reduction to make the feature space manageable.  
-		‣ Take a matrix of features X, and its reduced feature form R(X): the objective is to is to come up with transformation R such that the expected value of Y (predicted value) given X is the same as the expected value of Y (predicted value) given R(X)
-		‣ Similar to PCA, but in this case we aren’t trying to preserve all the variance in X, but rather the variance in X that is shared with Y
-• Partial least squares regression
-	◦ Basic idea: find the vector in X with the highest covariance with y, then choose a second vector orthogonal to the first that explains the highest covariance with y unexplained by first vector and so on, up to n vectors (the number of features in X)
-	◦ pls1= PLSRegression(n_components=desired_num_features
-	◦ pls1.fit(X,y)
-	◦ Y_PLS_pred = pls1.predict(X)
-	◦ pls1.score(X,y)
+- Dimensionality reduction in Linear Regression
+	- Plight of too many features:
+		- Having lots of features makes a model take longer to train and longer to run and more prone to overfitting
+		- Variance in the features that is unrelated to the outcome may create noise in predictions (bonus: if the variance is shared among features in multicollinearity)... therefore it is also the case that more features may add more unrelated variance and thus noise
+		- Having more variables than data points leads to negative degrees of freedom (a no fly)
+	- For the sake of prediction (not helpful if you need to interpret the roles of individual parameters) use dimension reduction to make the feature space manageable.
+		- Take a matrix of features X, and its reduced feature form R(X): the objective is to is to come up with transformation R such that the expected value of Y (predicted value) given X is the same as the expected value of Y (predicted value) given R(X)
+		- Similar to PCA, but in this case we aren’t trying to preserve all the variance in X, but rather the variance in X that is shared with Y
+- Partial least squares regression
+	- Basic idea: find the vector in X with the highest covariance with y, then choose a second vector orthogonal to the first that explains the highest covariance with y unexplained by first vector and so on, up to n vectors (the number of features in X)
+		- pls1= PLSRegression(n_components=desired_num_features)
+		- pls1.fit(X,y)
+		- Y_PLS_pred = pls1.predict(X)
+		- pls1.score(X,y)
+	- Doesn't work well if features are uncorrelated
 ### Assignment 4: The Gradient Descent Algorithm @todo incomplete pdf
 • regression finds the best model by minimizing the squared distance between each datapoint (the square removes issues around negative distances and penalizes more easily for larger distances)
 • When the model is simple, the cost function can be minimized completely with a system of equations.  However, other models are too complex to be minimized analytically like this so we have algorithms like gradient descent which minimizes the cost function using derivatives. 
