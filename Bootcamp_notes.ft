@@ -836,7 +836,6 @@ Experiment: Once the test has been administered, results should be examined for 
 	- All relationships between coefficients are linear; so an equation will look like y = alpha + c_1*x_1 + ...+ c_n *x_n 
 - Categorical Variables: each label has its own variable and thus its own coefficient.  For example, suppose we are calculating rent and our dataset has features: square footage, bedrooms, bathrooms, state.  The first three are number... no problem, the categorical variable (state) has to be split into one variable for each state included in data set, so the new feature set might look like: square footage, bedrooms, bathrooms, WA, CA, OR with each data point having a 1 for the state where the  property is, and a 0 for the other state labels (labels should be mutually exclusive).  By this reasoning linear regression can estimate a coefficient for each of the states and we can correctly note that being in CA is a financially insane place to rent.  
 - Linear doesn’t have to mean lines: while the relationships between the coefficients are linear, it’s fair game for the relationships between the variables to not be; e.g. y = alpha + c_1*x + c_2*x^2 (so here x_1 =x and x_2 = x^2), but be careful not to over complicate the model to fit trainig data, overfitting is a problem here too.
-
 ### Project 3: Explanatory power: assumptions of linear regression @todo need to complete project
 - The extraordinary power of explanatory power:  multiple linear regression both allows us to predict future outcomes, but also provides insight into the relationships between the underlying variables and using the r^2 value ([0,1]), a sense of how much of the variance in the data the model was able to explain and hence how much confidence we should have in our interpretation of the model. 
 	- Low r^2 indicates a poor fit
@@ -848,9 +847,7 @@ Experiment: Once the test has been administered, results should be examined for 
 	- Low multicollinarity: correlations among feature should be low or nonexistent (the model could attribute half the explanatory power to one variable and the other half to the other but underneath they two variables are telling the same story so this is not helpful if we are trying to explain the variance--as far as prediction goes, this might work fine)
 		- fixed by PCA (collapsing correlated variables into one)
 		- dropping correlated features
-
-### Project 4: Challenge: make your own regression model @todo need to complete project 
-
+### Project 4: Challenge: make your own regression model
 ## Lesson 5: Evaluating Linear Regression models
 ### Assignment 1: Test Statistics 
 - Test Statistics
@@ -895,8 +892,8 @@ Experiment: Once the test has been administered, results should be examined for 
 	- so this allows us to make a statement not only about what to expect, but how confident we are that it will happen
 	- the wider the confidence interval, the less certain the estimate
 	- prstd, iv_l, iv_u = wls_prediction_std(lm)
-### Project 2: Challenge: Validating a linear regression @todo need to complete project
-### Project 3: Dimensionality Reduction in Linear Regression @todo incomplete pdf, need to complete project
+### Project 2: Challenge: Validating a linear regression 
+### Project 3: Dimensionality Reduction in Linear Regression 
 - Dimensionality reduction in Linear Regression
 	- Plight of too many features:
 		- Having lots of features makes a model take longer to train and longer to run and more prone to overfitting
@@ -912,15 +909,26 @@ Experiment: Once the test has been administered, results should be examined for 
 		- Y_PLS_pred = pls1.predict(X)
 		- pls1.score(X,y)
 	- Doesn't work well if features are uncorrelated
-### Assignment 4: The Gradient Descent Algorithm @todo incomplete pdf
-• regression finds the best model by minimizing the squared distance between each datapoint (the square removes issues around negative distances and penalizes more easily for larger distances)
-• When the model is simple, the cost function can be minimized completely with a system of equations.  However, other models are too complex to be minimized analytically like this so we have algorithms like gradient descent which minimizes the cost function using derivatives. 
-	◦ Initialize weights: w_0 = 0 (intercept), w = [0 for ik in range(training_examples)]
-	◦ Initialize convergence = False
-	◦ Run loop where as long as the weights haven’t converged
+	- trick is to pick the right number of features to collapse to
+### Assignment 4: The Gradient Descent Algorithm 
+- regression finds the best model by minimizing the squared distance between each datapoint (the square removes issues around negative distances and penalizes more easily for larger distances)
+- When the model is simple, the cost function can be minimized completely with a system of equations.  However, other models are too complex to be minimized analytically like this so we have algorithms like gradient descent which minimizes the cost function using derivatives. 
+- put another way, given y= alpha + beta*x, we have a surface of points that are alpha, beta and error (y-y_pred) and we are trying to find the minium point on that surface. The same principle applies for higher dimensional spaces, but we can't visualize as well. 
+	- Initialize weights
+	- calculate the gradient from that point (minimize the partials of the cost function)
+	- move a set distance in that direction
+	- repeat until you can't go down any farther (or where all possible alternatives yield higher error than the current)
+
+	- Can be calculated with set distance or adaptive distance
+	- Run loop where as long as the weights haven’t converged
+- Decision-points in Gradient Descent
+	- how to initialize the weights
+	- how far to move at each step (learning rate)
+	- what constitutes "convergence"? set with a threshold of minimal acceptable change, and probably a maximum number of iterations
+- Things get messy when we nab a local minima rather than a global minima so sometimes need to try multiple starting places to rule this out
 # Unit 3
 ## Lesson 1:
-### Project 1: KNN classifier @todo incomplete pdf, need to complete project
+### Project 1: KNN classifier 
 • K Nearest Neighbors Classifiers: simplest example of calculating which data points are most similar to an observation
 	◦ Nearest Neighbor: find the closest known observation in our training data by some distance metric (typically we use Euclidean distance) and predict that our value has the same label 
 		‣ Greedy because have to calculate the distance from our point to every point in the set to find the datapoint with the smallest distance. 
@@ -934,38 +942,106 @@ Experiment: Once the test has been administered, results should be examined for 
 			• Run whole grid of points through the model
 			• Create and plot color mesh
 		‣ one would expect any new point falling in a given zone to be labeled accordingly
-### Project 2: Tuning KNN- normalizing distance, picking k @todo incomplete pdf, need to complete project
-• Tuning KNN: 
-	◦ Distance and Normalizing
-		‣ Implicit in the Euclidean distance metric is that the distance between all points is equal (for example, using “loudness” rather than “decibels”) and this is not always the case
-		‣ Also, if one dimension is on a wildly different scale than another, the model won’t care about the second variable
-		‣ Normalization
-			• Rescale: rescale everything to be between 0 and 1 (only works if the distances are linear to begin with and the data is known to be bounded so that rescaling to be between 0 and 1 does not impose an artificial boundary)
-			• Recalculate so that distance is in terms of standard deviations (z-scores) from the mean
-			• Not good practice to mix them in most cases
-	◦ Weighting
-		‣ In the vanilla version of KNN, all votes are counted as equal, which is reasonable when the data is densely populated
-		‣ However, when the k nearest neighbors are vastly different distances from the point in question, it may be questionable for all votes to count the same—perhaps weight by distance so that points are influenced according to their inverse distance to point in question
-			• KNeighborsClassifier(n_neighbors = 3, weights=‘distance’)
-### Project 3: KNN regression @todo incomplete pdf, need to complete project
-• KNN Regression
-	◦ Everything’s the same: Rather than taking the popular label, take the average of a given variable over the k closest points @what happens if there are more than k points with the same x value, how does the model choose which k are the closest?
-		‣ KNN= neighbors.KNeighborsRegressor(n_neighbors=k)
-		‣ KNN.fit(X, Y)
-		‣ (Can run a line with regular intervals through model to see regression line)
-		‣ (Can use the same weighting trick (weights=‘distance’))
-	◦ Validating KNN:
-### Project 4: Challenge: Model Comparison @todo complete project
+### Project 2: Tuning KNN- normalizing distance, picking k
+- Tuning KNN: 
+	- Distance and Normalizing
+		- Implicit in the Euclidean distance metric is that the distance between all points is equal (for example, using “loudness” rather than “decibels”) and this is not always the case
+		- Also, if one dimension is on a wildly different scale than another, the model won’t care about the second variable
+		- Normalization
+			- Rescale: rescale everything to be between 0 and 1 (only works if the distances are linear to begin with and the data is known to be bounded so that rescaling to be between 0 and 1 does not impose an artificial boundary)
+			- Recalculate so that distance is in terms of standard deviations (z-scores) from the mean
+			- Not good practice to mix them in most cases
+	- Weighting
+		- In the vanilla version of KNN, all votes are counted as equal, which is reasonable when the data is densely populated 
+		- However, when the k nearest neighbors are vastly different distances from the point in question, it may be questionable for all votes to count the same—perhaps weight by distance so that points are influenced according to their inverse distance to point in question
+			- KNeighborsClassifier(n_neighbors = 3, weights=‘distance’)
+	- Choosing K
+		- the larger the k, the more smoothed teh decision space will be with more observations gettna a vote on the prediction
+		- smaller k will pick up subtle deviations (which could just be deviations and overfitting)
+		- best bet is to try multiple models and use valdation techniques to choose
+#### Drill:
+Drill:  Let's say we work at a credit card company and we're trying to figure out if people are going to pay their bills on time. We have everyone's purchases, split into four main categories: groceries, dining out, utilities, and entertainment. What are some ways you might use KNN to create this model? What aspects of KNN would be useful? Write up your thoughts in submit a link below.
+
+Assuming there is a column of labelled data regarding whether or not people did pay their bills on time, all four variables could be entered and knn could be applied. It would be useful as different combinations of features may play different roles in the distance between two points because different people have different spending habits, but there may still be a larger picture model for predicting ability to pay bills.  It might be worth looking at the correlation between the variables to see if, for example dining out and entertainment might collapse into one variable. Given we are working in 4-space, it would be impossible to visualize with a mesh plot, but we could run a battery of options to test different values of k.  Without seeing the data, it would be difficult to assess the need for weights or normalization, but adding these parameters as options for optimizing the model would be worth considering. Perhaps we could assess by making a plot with the k distances of the k nearest points per point.  If there is a pattern of outliers, it would be worth considering a weighting scheme.
+
+### Project 3: KNN regression 
+- KNN Regression
+	- Everything’s the same: Rather than taking the popular label, take the average of a given variable over the k closest points @what happens if there are more than k points with the same x value, how does the model choose which k are the closest?
+		- KNN= neighbors.KNeighborsRegressor(n_neighbors=k)
+		- KNN.fit(X, Y)
+		- (Can run a line with regular intervals through model to see regression line)
+		- (Can use the same weighting trick (weights=‘distance’))
+	- Validating KNN:
+		- Can still use all the nornal methods (e.g. cross_val_score)
+### Project 4: Challenge: Model Comparison 
 ## Lesson 2
-### Assignment 1: Decision trees @todo incomplete pdf
-• Decision Trees
-	◦ Learning from questions
-		‣ Nodes: questions (either the root node (first node), interior nodes (follow up questions), leaf nodes (endpoints))
-		‣ The questions in the nodes are called rules
-			• Divides the data into a certain number (typically two) subgroups
-			• All data has to be accounted for, it cannot simply disappear 
-		‣ Links between nodes are paths or branches
-	◦ Entropy
-		‣ Shannon Entropy H is the weighted sum of log base two of the probabilities of all outcomes
-			• As we limit the possible number of outcomes, entropy decreases
-		‣ Information Gain: change in entropy from the original state to the weighted potential outcomes of the following state
+### Assignment 1: Decision trees
+- Decision Trees
+	- Learning from questions
+		- Nodes: questions (either the root node (first node), interior nodes (follow up questions), leaf nodes (endpoints))
+		- The questions in the nodes are called rules
+			- Divides the data into a certain number (typically two) subgroups
+			- All data has to be accounted for, it cannot simply disappear 
+		- Links between nodes are paths or branches
+	- Entropy
+		- Shannon Entropy H is a weighted sum; the sum of probability of a given out come times log base two of that probability for all outcomes
+			- As we limit the possible number of outcomes, entropy decreases
+		- Information Gain: change in entropy from the original state to the weighted potential outcomes of the following state
+	- writing code:
+			dec_tree = tree.DecisionTreeClassifier(criterion='entropy', max_features = 1, max_depth=4)
+			dec_tree.fit(X_train, y_train)
+			dot_data = tree.export_graphviz(dec_tree, out_file=None, feature_names=X_train.columns, class_names= [], filled=True)
+			graph = pydotplus.graph_from_dot_data(dot_data)
+			Image(graph.create_png())
+		- for the code above, the tree specs have only one feature being used per node and there are only four decision levels to arrive at a classification
+	- Benefits
+		- the model well visually
+		- thay are interpretable
+		- they can handle mixed data (numeric and categorical)
+		- don't take must data preparation
+		- there is a classifier and a regression model
+	- Downsides
+		- there is a randomness to their generation which can affect variance
+		- they aren't gauranteed to build the same way every time
+		- prone to overfitting if allowed to sprout too many layers
+		- they need balanced datat because they will tend to bias toward the dominent class
+### Assignment 2: ID3 algorithm
+- ID3 Algorithm: Iterative Dichotomizer 3 goes through the features and identifies the most valuable attribute and then splits data based on it.  THen it takes the next most valuable attribute and splits base don that... and so forth
+- requirements:
+	- outcomes have to be binary
+	- attributes your splittling on have to be categorical
+	- definition of entropy (like Shannon Entropy H)
+- Let's consider an example: male and female students, short, medium, tall; M(2,6,4) F(5,2,1)
+	- without a rule, the entropy is the formula plugged in over both the possible final classes of interest (in this case male and female) 
+		- 12/20*log_2 (20/12) + 8/20*log_2(20/8) = .971
+	- supposse we apply the rule height=short...
+		- H(short)=P(short and male)*log_2(1/P(short and male))+P(short and female)* log_2(1/P(short and female)) = 2/7* log_2(7/2) + 5/7* log_2(7/5) = .863
+		- H(not short)=P(not short and male)* log_2(1/P(not short and male)) + P(not short and female)* log_2(1/P(not short and female)) = 10/13* log_2(13/10) + 3/13* log_2(13/3) = .779
+		- H = 7/20 * H(short)+ 13/20 * H(not short) = .809
+- Pseudocode
+	- If all observations return A, label root node A and return
+	- If all observations return B, label root node B and return
+	- Else for each attribute of each feature, calculate the entropy. The attribute of with the minimum entropy is the picked condition.  
+		- if either the yes or no branch lead to only one label, that branch is considered finished and leads to that label. 
+		- if a branch leads to more than one label, the set is reduced to the population that agrees with that branch and the entropy is calculated for all remaining attributes to decide on the next condition... and so on until either the max number of branches has been reached and then majority rules for the final labels, or all conditions terminate in unanimous decisions
+### Assignment 3: Random Forests
+- a forest of decision trees
+- set parameters for tree (depth of tree, number of features used in each rule, method of construction (e.g,. Gini impurity, entropy/information gain))
+- set parameters for forest (number of estimators)
+	- more estimators increases accuracy but the model accuracy will plateau so when variance is acceptable, knock it off.
+- bagging and random subspace
+	- bagging: each tree samples the dataset (with replacement) to build a training set (in the style of cross validation)
+	- each split is based on a random subset of features (features**(1/2) for classifiers and features/3 for regression)
+- advantages: tends to perform well
+- disadvantages:
+	- will not predict outside the sample (unlike some regression models where you can predict values outside domain of training set)
+	- can get large and slow if allowed to grow 
+	- black box problem: unlike individual decision trees, random forests are not interpretable (no insight into the underlying processes) so you have to just trust the accuracy and the low variance that comes from using a lot of them
+### Assignment 4: Ensemble modeling
+- models made up of other models, e.g. Random forests whhich combine many decision trees to arrive at a sngle prediction via a voting process
+- Methods of Ensemble Modeling
+	- bagging: take susbets of the data and train a model on each subset. then the subsets are allowed to simultaneously vote on the outcome, either taking a majority of a mean (e.g Random Forests)
+	- Boosting: uses the output of one model as tht input in the next model in a serial processing approach. Models can be daisy-chained until a stopping condition is met 
+	- Stacking: first phase the models are trained in parallel, then in the second phase, those models are used as inputs into a final model to give a final predicition. (it is essentiall a hybrid of bagging and boosting)
+- On the upside the performance of ensemble models is often better because they cover each other's short comings.  On the downside, they are prone to overfitting and interpretability is abstracted away. 
+### Project 5: Random forest: guided example
