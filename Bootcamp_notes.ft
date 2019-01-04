@@ -1045,3 +1045,53 @@ Assuming there is a column of labelled data regarding whether or not people did 
 	- Stacking: first phase the models are trained in parallel, then in the second phase, those models are used as inputs into a final model to give a final predicition. (it is essentiall a hybrid of bagging and boosting)
 - On the upside the performance of ensemble models is often better because they cover each other's short comings.  On the downside, they are prone to overfitting and interpretability is abstracted away. 
 ### Project 5: Random forest: guided example
+## Lesson 3: Advanced Regression
+### Assignment 1: Logistic Regression
+- Logistic regression v. linear regression
+	- linear regression is of the form y = alpha+beta*X_hat
+	- binary logistic regression is of the form: ln(p/1-p) = beta*X_hat
+		- relates p (the probability of getting y=1 rather than y=0) to a matrix of variables X
+		- p/1-p represents the odds of getting y=1
+	- both behave in the same way:
+		- linearity (of the transformed probabilities and the predictors)
+		- require 
+			- multivariate normality of the residuals 
+			- homoscedasticity Ivariance of the residuals is constant across all predicted values
+			- low multicollinarity
+- why log? A well fitting regression line reflects the shape of the data which isn't possible with a binary y.  Instead, we fit the regression to the odds of y=1 (which is calculated by counting the number of times y=1 for each value of x, divided by the count of y=1 values)
+- linear v. nonlinear transformations
+	- a linear transformation is one where the relationship between the original value nad the transformed value is the same for all values of the variable (+,-,*,/)
+	- a nonlinear relationship is the opposite (e.g. logs and powers)
+- using logs: if the space between values seems to increase as x increases, try taking the log and then running regression
+	- draw back: to make the results really interpretable, have to exponentiate them. @question I can see how this works with OLS, but how does taking the log affect the math for logistic regression 
+	- exercise:
+- Fitting a binary logistic model using statsmodels
+- Beyond Binary
+	- multinomial logistic regression (classifier with more than two outcomes) is another sklearn model
+	- ordinal logistic regression for dealing with cases where order matters but the distance between a given two sequential items may differ (see the mord package)
+### Assignment 2: Ridge Regression
+- Improving on OLS: we can get better predictions by modifying the OLS cost function
+	- OLS optimizes variance explained in the training set, but Ridge and Lasso regressions optimize variance explained in the test set (how?!)
+- Ridge Regression: takes the OLS cost function and adds a term that imposes a penalty for large coefficients; 
+	- represents the sum of the square of all model coefficients multiplied by a regularization parameter. As the regularization parameter gets larger, so too does the penalty for coefficient size
+	- also called "L2 regularization"
+	- as models become more complex and features correlate with one another more and more (multicolinear), OLS coefficients get larger, which is a sign of overfitting (which in turn is related to overexplaining the variance of the training set)
+	- Regularization parameter: Ridge
+		- the regularization parameter can take any value >0
+		- best approach is to use cross_val to search for an optimal value (GridSearchCV, model specific cross validation?)
+		- @question go through the last plot in 3-3-2
+### Project 3: Lasso regression
+- Least Absolute Shrinkage and Selection Operator: model optimization approach that tries to force small parameters to zero, thereby dropping them from the model (reduces overfitting and functionally does some amount of feature selection by chucking out unimportant features)
+	- similar to ridge regression except that it penalizes the absolute value of coefficients rather than the square of coefficients
+	- also called, "L1 regularization"
+	- Gradient Descent fails to converge where x=0 because of a discontinuitiy (presumably this is because of the corner in the absolute value function?)
+- Fitting Lasso: Coordinate Descent Algorithm
+	- uses Coordinate Descent rather than Gradient Descent because of above discussed discontinuity
+		- choose a vector of beta values (often a zero vector)
+		- for each feature j in beta_hat, (1) predict the outcome of all features except for j (2) look at correlation between residuals from the model using all beta but beta_j (called rho_j) and feature j (3) if the correlation is within the regularization parameter distance of 0: set beta_j=0, else if rho_j< reg_param/t: set beta_j=rho_j+reg_param/2, else if rho_j>reg_param/2: set beta_j=rho_j-reg_param/2... continue until the max difference between parameter estimates in the previous cycle and current cycle is less than some threshold
+		- can work through all parameters or randomly choose some to test
+	- put another way: lasso fitts the model to the data while excluding a feature and if the model fits well enough then it excludes the feature because it is deemed superfluous, otherwise the value of beta is revised
+### Project 4: Challenge
+## Lesson 4: Support Vector Machines
+## Lesson 5: Boosted Models
+## Lesson 6: 
