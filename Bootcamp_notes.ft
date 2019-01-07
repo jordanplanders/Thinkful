@@ -1093,5 +1093,26 @@ Assuming there is a column of labelled data regarding whether or not people did 
 	- put another way: lasso fitts the model to the data while excluding a feature and if the model fits well enough then it excludes the feature because it is deemed superfluous, otherwise the value of beta is revised
 ### Project 4: Challenge
 ## Lesson 4: Support Vector Machines
+### Assignment 1: Linear SVM
+- a method for devising the boundar(ies?) between categories
+- Margin and Support Vectors
+	- margin is the distance between the nearest point in each class and the boundary; being directly on the line makes the model suceptible to error due to what is essentially a version of overfitting
+	- support vectors: the lines that split the nearest pairs of points; want the best boundary which is the one that optimizes the margin
+- Finding the optimal boundary: for our introduction, we will stick with a linear boundary (which is to say, use a linear kernel) and use sklearn @question but the short form is that we solve for the two lines that bound the two categories and then look for the line that maximizes the distance of all points from that line 
+- Things get messy: most datasets are in multiple dimensions and rather than having a boundary line the boundary is a hyperplane or n-1 dimensional space
+	- hard margin: a boundary that groups each observation exclusively on one side of the other
+	- soft margin: a boundary that doesn't fully seperate all observations
+	- SVM uses a cost function that maximizes the size of the margin and minimizes the cumulative distance of points on the wrong side of the margin
+### Assignment 2: The Kernel Trick
+- when the boundary isn't linear, need to project observations into a dimension where it can be divided by a single surface, then return to original dimension @question what's happening under the hood that makes this work? How is the computer seeing this problem clearly differently from us because the circle is obvious by inspection, but not by calculation
+- Kernel functions: a way of mapping data to a space using weights @question What is a kernel function?
+- Kernels in SVM: a function that implicitly computes the dot product between two vectors in a higher dimensional space without actually transforming the vectors into that space
+	- the dimensionality depends on the number of dimensions in the input @question isn't this a function of the number of features
+- Kernel estimation in practice: by and large we use radial basis function, which uses Gaussian decay according to distance from the original point
+### Assignment 3: Extensions
+- Multiple classes: build classifiers for one category v else for all features, tabulating the confidence that each point belongs to each category 
+- Regressor @question how does this work?
+- Clustering: To be discussed
+### Project 4: Challenge
 ## Lesson 5: Boosted Models
 ## Lesson 6: 
