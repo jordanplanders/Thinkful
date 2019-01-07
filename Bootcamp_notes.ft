@@ -1115,4 +1115,27 @@ Assuming there is a column of labelled data regarding whether or not people did 
 - Clustering: To be discussed
 ### Project 4: Challenge
 ## Lesson 5: Boosted Models
+### Assignment 1: What is boosting
+- model the data over and over, each time adjusting the model based on what was learned in the previous iteration
+- use a model to fit the whole dataset, then add another model on top to fit the incorrect predictions/residuals for regression until some threshold. 
+- Elements of boosting:
+	- type of simple model 
+	- index of error (e.g. classification error, cost function, regression residual)
+	- how iterations target the error (weight inaccurately predicted cases high adn accurately predicted cases as low, model residuals, model inaccurate subset)
+	- stopping rule (bound the number of models that can be implemented; avoid overfitting)
+### Assignment 2: Gradient boost
+- Gradient Boosting
+	- recall gradient descent: for a particular regression model win n parameters, an n+1 dimensional space can be define where the additional dimension is introduced by a loss function.  The regression parameters are fitted by moving down the gradient until the lowest point on the surface.
+	- in Gradient Descent the data being used for the calculation is always the same, but in Gradient Boosting, the data change.
+	- Typically Gradient Boosting works with decision trees, either minimizing the residual (regression), or the negative log-likelihood (classification trees)
+- Gradient Boosting with regression trees @question I don't understand the inner workings here
+	- at the first iteration, train the model on y
+	- at all subsequent iterations: train the model on the residual (y-y_pred1), calculate the new predicted value as y_pred2 = y_pred1 + residual_1, calculate the new residual y-y_pred2, train the model on the new residual... and so on
+- Overfitting: more iterations we run, the closer we come to overfitting
+	- subsampling: each iteration of the boost alg. uses a subsample of the original data (introduces some light randomness to the training process)
+	- shrinkage: regularization parameter reduces the impact of subsequent iterations on the final solution (kind of like in ridge regression where less important features bite the dust)
+		- learning rate: each step along the the loss function gradient is a little smaller than the previous (0= only first iteration matters, 1= all iterations carry equal weight)
+### Project 3: Guided Example and Challenge
+### Assignemnt 4: Wrap up
+### Assignment 5: Challenge: What model can answer this question?
 ## Lesson 6: 
