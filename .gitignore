@@ -1,6 +1,8 @@
 **/*.ipynb_checkpoints/*
 **/*-checkpoint.ipynb/
 **/*.pyc
+**/*.gdoc
+**/*.gsheet
 **/*.log
 **/*.out
 **/*.synctex.gz
@@ -9,3 +11,7 @@
 **/*.DS_STORE
 pdfs/
 Prep Course/Working Capstone/Capstone Project/woa13.csv
+Bootcamp/Unit\ 3/creditcard.csv
+Bootcamp/Unit\ 3/2008.csv
+Bootcamp/Unit\ 3/reviews_Tools_and_Home_Improvement_5.json
+Bootcamp/Unit\ 3/los_angeles
