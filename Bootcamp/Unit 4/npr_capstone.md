@@ -95,7 +95,7 @@ Jordan Landers | Thinkful | Unit 4 Capstone
 ---
 
 ## KMeans: Choosing reporters
-- Modelled and scored with `range(2,50)` clusters with the first x combinations of the 20 choose 10 combinations of reporters with more than 120 reporting pieces available. Modelled with both LSA and doc2vec feature sets. 
+- Modelled and scored with `range(2,50)` clusters with the first 1688 and 337 (LSA, doc2vec, respectively) combinations of the 20 choose 10 combinations of reporters with more than 120 reporting pieces available. Modelled with both LSA and doc2vec feature sets. 
 
 
 ## KMeans: Choosing reporters (cont.)
