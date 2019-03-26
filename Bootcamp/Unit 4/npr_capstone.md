@@ -140,6 +140,7 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 - Clustering the participants of each cluster but only keeping the sub-clustering if the silhouette score surpassed the average of the initial clustering
 - `num_clusters` = 2 split into: (Politics, Health Care), (Health Science, Tech, Natural Science & Aerospace)
 
+| **2 Clusters** | **5 CLusters** | 
 |:-:|:-:|
 |![](img/tsne_kmeans_bestreps_2.svg)|![](img/tsne_kmeans_bestreps_sub5.svg)| 
 
