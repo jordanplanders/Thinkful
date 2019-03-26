@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jason A. Grafft">
+  <title>Programming Languages Influence How We Code</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="classifying-npr" class="slide level1">
+<h1>Classifying NPR</h1>
+<p>Jordan Landers | Thinkful | Unit 4 Capstone</p>
+</section><section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<ul>
+<li>How distinctive are correspondents?</li>
+<li>Are NPR reports linked to authors by topic or by style?</li>
+</ul>
+</section></section>
+<section><section id="getting-data" class="title-slide slide level1"><h1>Getting Data</h1></section><section id="scrapy--selenium" class="slide level2">
+<h2>Scrapy &amp; Selenium</h2>
+<ul>
+<li>Scrapy spider with Selenium browser simulator to extract links from a user initiated infinite scroll page.</li>
+<li>Scrapy spider to extract transcript text and metadata.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>For each correspondent, the initial page loads with approximately 10 links and then waits for a user to scroll down the page before loading more. I used selenium to simulate the user (it literally opens a browser window) scroll ten times before scraping transcript links.</li>
+<li>Not all pieces have transcripts. :::</li>
+</ul>
+</aside>
+</section></section>
+
+<section><section id="prepping-data" class="title-slide slide level1"><h1>Prepping Data</h1></section><section id="cleaning-and-splitting" class="slide level2">
+<h2>Cleaning and Splitting</h2>
+<ul>
+<li>Split transcripts along dialogue lines</li>
+<li>Matched speaker to comment</li>
+<li>Identified host and byline</li>
+<li>Scrubbed reporter names from comment transcript</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Made sure to remove reporter names from comment transcripts to make sure models couldn't train based on labels being in content</li>
+<li>In a few cases, correspondents also host shows, so dialogue was tagged as host according to who was identified as host in the transcript so that the two scenenarios distinguished</li>
+</ul>
+</aside>
+</section><section id="final-data" class="slide level2">
+<h2>Final Data</h2>
+<ul>
+<li>For each story, host and interviewee comments were filtered out, leaving correspondent comments.</li>
+<li>Stop words, punctuation, numbers were removed from comments and lower case words were lemmatized using Spacy.</li>
+<li>Words were joined back into strings.</li>
+<li>Downsampled the available data to reduce class imbalance (class by speaker).</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>So final key-value pairs look like speaker-string, where the string is a joined list of supposedly important words. This is the format that can be processed into a TaggedDocument.</li>
+<li>Original concentrated text (all text from the correspondent for a given piece) was preserved for TF-IDF processing</li>
+</ul>
+</aside>
+</section></section>
+
+<section><section id="workflow" class="title-slide slide level1"><h1>Workflow</h1></section><section id="overview" class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li>Unsupervised Feature Creation</li>
+<li>Clustering</li>
+<li>Supervised Classification by author</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>The unsupervised feature creation was parameter tuned by exhaustively creating parameter sets, generating features, clustering them, recording number of clusters and sillohouette scores, and looking at best scoring parameter sets and cluster numbers.</li>
+<li>Unsupervised features were then used to train supervised classifiers.</li>
+</ul>
+</aside>
+</section></section>
+
+<section><section id="unsupervized-feature-creation" class="title-slide slide level1"><h1>Unsupervized Feature Creation</h1></section><section id="doc2vec" class="slide level2">
+<h2>Doc2Vec</h2>
+<ul>
+<li>Comment text was broken into words, tagged by document, and used to build corpus vocabulary.</li>
+<li>Tagged documents were used to train Doc2Vec representation with prescribed parameters.</li>
+</ul>
+<ul>
+<li>Parameters were chosen through exhaustive parameter search.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>doc2vec is an extention of word2vec :::</li>
+</ul>
+</aside>
+</section><section id="tf-idf--lsa" class="slide level2">
+<h2>TF-IDF &amp; LSA</h2>
+<ul>
+<li>raw text blocks were fed into sklearn tf-idf vectorizer
+<ul>
+<li>processed without stop words as 1-grams and 2-grams</li>
+</ul></li>
+<li>lsa implemented with pipeline connecting tf-idf and svd</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>TF-IDF stands for term frequency-inverse document frequency; calculate a score for each ngram based on the frequency with which it comes up in a certain document relative to how many documents it appears in in the corpus</li>
+<li>LSA stands for Latent Semantic Analysis and involves using Singular Value Decomposition to reduce the number of dimensions of the bag of ngrams</li>
+</ul>
+</aside>
+</section></section>
+
+<section><section id="clustering" class="title-slide slide level1"><h1>Clustering</h1></section><section id="kmeans-choosing-reporters" class="slide level2">
+<h2>KMeans: Choosing reporters</h2>
+<ul>
+<li>Modelled and scored with <code>range(2,50)</code> clusters with the first x combinations of the 20 choose 10 combinations of reporters with more than 120 reporting pieces available. Modelled with both LSA and doc2vec feature sets.</li>
+</ul>
+</section><section id="kmeans-choosing-reporters-cont" class="slide level2">
+<h2>KMeans: Choosing reporters (cont.)</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>LSA</strong></th>
+<th style="text-align: center;"><strong>Doc2Vec</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">score = .11, clusters = 37</td>
+<td style="text-align: center;">score = .21, clusters = 2</td>
+</tr>
+</tbody>
+</table>
+<p><img src="img/npr_d2vlsa_rep_comb.svg" /></p>
+<aside class="notes">
+<ul>
+<li>LSA scores ranged from approximately .04 to .12</li>
+<li>Doc2Vec scores ranged from x to y with a tendancy toward a two cluster split, but some variability depending on the author set chosen.</li>
+<li>Exhaustive search limited by computing resources. Potentially worth trying on a cluster to find the combination of reporters most representative.<br /></li>
+</ul>
+</aside>
+</section><section id="kmeans-considering-clusters" class="slide level2">
+<h2>KMeans: Considering Clusters</h2>
+<p>-Doc2Vec features performed better than LSA features.
+- D2V split the documents into Science/Not Science.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>LSA</strong></th>
+<th style="text-align: center;"><strong>Doc2Vec</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img width="400px" src="img/silplot_run_lsa_summary3.svg"/></td>
+<td style="text-align: center;"><img width="400px" src="img/silplot_run_d2v_summary1.svg"/></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">score = .11, clusters = 37</td>
+<td style="text-align: center;">score = .21, clusters = 2</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<ul>
+<li>within top 4 scoring clusterings for d2v, all had only two clusters</li>
+<li>within top 4 scoring clusterings for lsa, all clustered in mid 30s</li>
+</ul>
+</aside>
+</section><section id="visualizing-clusters-with-tsne" class="slide level2">
+<h2>Visualizing Clusters with TSNE</h2>
+<ul>
+<li>Trained T-SNE model on tagged documents to obtain a set of axes potentially useful for visualizing clusters (also tried PCA, though TSNE was more effective)</li>
+</ul>
+<p><img src="img/tsne_kmeans_bestreps_2.svg" width="500px" /></p>
+<aside class="notes">
+<ul>
+<li>T-SNE stands for t-distributed Stochastic Neighbor Embedding</li>
+<li>dimensionality reduction technique for visualizing high dimensional data at two or three dimensions</li>
+<li>tsne plots often display clusters whether or not the data set has a clustered structure</li>
+</ul>
+</aside>
+</section><section id="clustering-clusters" class="slide level2">
+<h2>Clustering Clusters</h2>
+<ul>
+<li>Clustering the participants of each cluster </li>
+<li><code>num_clusters</code> = 2: (Politics, Health Care), (Health Science, Tech, Natural Science &amp; Aerospace)</li>
+</ul>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img width="400px" src="img/tsne_kmeans_bestreps_2.svg"/></td>
+<td style="text-align: center;"><img width="400px" src="img/tsne_kmeans_bestreps_sub5.svg"/></td>
+</tr>
+</tbody>
+</table>
+</section><section id="clustering-observations" class="slide level2">
+<h2>Clustering Observations</h2>
+<ul>
+<li>Predicting subject of NPR reporting pieces is sensitive to reporters chosen, as well as the news pieces themselves.</li>
+<li>Improvements might include:
+<ul>
+<li>Varying downsampling to find best training set size</li>
+<li>Completing search for an optimal combination of reporters who best characterize news subjects</li>
+<li>Clustering a large number of times with a given reporter set to identify consistent clusters</li>
+</ul></li>
+</ul>
+</section></section>
+
+<section><section id="supervised-classifiers" class="title-slide slide level1"><h1>Supervised Classifiers</h1></section><section id="sc-doc2vec" class="slide level2">
+<h2>Doc2Vec</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Model</strong></th>
+<th style="text-align: center;"><strong>Train Score</strong></th>
+<th style="text-align: center;"><strong>Test Score</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Logistic Reg</td>
+<td style="text-align: center;">.72</td>
+<td style="text-align: center;">.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Grad Boosting</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SVC</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">.07</td>
+</tr>
+</tbody>
+</table>
+</section><section id="sc-lsa" class="slide level2">
+<h2>LSA</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Model</strong></th>
+<th style="text-align: center;"><strong>Train Score</strong></th>
+<th style="text-align: center;"><strong>Test Score</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Logistic Reg</td>
+<td style="text-align: center;">.93</td>
+<td style="text-align: center;">.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Grad Boosting</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SVC</td>
+<td style="text-align: center;">.11</td>
+<td style="text-align: center;">.07</td>
+</tr>
+</tbody>
+</table>
+</section><section id="supervised-classifier-observations" class="slide level2">
+<h2>Supervised Classifier Observations</h2>
+<ul>
+<li>LSA features train a much more accurate author classifier than Doc2Vec.</li>
+<li>Doc2Vec captures content but NPR reporters cover a range of topics in a loose field, so are not distinctive by subject.</li>
+<li>Within the scope of this training set, topic vectors in training set for one author are not predictive of topic vectors of that author in the test set.</li>
+</ul>
+</section></section>
+<section><section id="conclusions" class="title-slide slide level1"><h1>Conclusions</h1></section><section id="conclusions-data" class="slide level2">
+<h2>Data</h2>
+<ul>
+<li>These models could potentially be improved by tuning the data set.
+<ul>
+<li>Picking Reporters (and number)</li>
+<li>Framing article date window</li>
+<li>Optimizing per author sample size</li>
+</ul></li>
+</ul>
+<ul>
+<li>Exhaustively sampling and testing would require additional computational resources.</li>
+</ul>
+</section><section id="conclusions-modeling" class="slide level2">
+<h2>Modeling</h2>
+<ul>
+<li>Other clustering methods, iterative clustering, cluster tuning might all improve clustering results</li>
+<li>Supervised author classifiers could be tuned, but perform well.</li>
+</ul>
+</section></section>
+<section id="thank-you" class="slide level1">
+<h1>Thank you!</h1>
+<ul>
+<li><a href="https://github.com/jordanplanders/">https://github.com/jordanplanders/</a></li>
+</ul>
+</section>
+
+
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
