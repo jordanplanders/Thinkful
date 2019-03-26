@@ -116,9 +116,8 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 
 | **LSA** | **Doc2Vec** | 
 |:-:|:-:|
-| ![](img/silplot_run_lsa_summary3.svg)| ![](img/silplot_run_d2v_summary1.svg)| 
+|![](img/silplot_run_lsa_summary3.svg)|![](img/silplot_run_d2v_summary1.svg)| 
 |score = .11, clusters = 37 | score = .21, clusters = 2| 
-
 
 :::notes
 - within top 4 scoring clusterings for d2v, all had only two clusters
@@ -143,7 +142,7 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 
 | **LSA** | **Doc2Vec** | 
 |:-:|:-:|
-| ![](img/tsne_kmeans_bestreps_2.svg)| ![](img/tsne_kmeans_bestreps_sub5.svg)| 
+|![](img/tsne_kmeans_bestreps_2.svg)|![](img/tsne_kmeans_bestreps_sub5.svg)| 
 
 
 ## Clustering Observations
