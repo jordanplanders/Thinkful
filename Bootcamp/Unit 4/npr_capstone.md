@@ -116,7 +116,7 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 
 | **LSA** | **Doc2Vec** | 
 |:-:|:-:|
-| ![](img/silplot_run_lsa_summary3.svg|width=400)| ![](img/silplot_run_d2v_summary1.svg|width=400)| 
+| ![](img/silplot_run_lsa_summary3.svg)| ![](img/silplot_run_d2v_summary1.svg)| 
 |score = .11, clusters = 37 | score = .21, clusters = 2| 
 
 
@@ -129,7 +129,7 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 ## Visualizing Clusters with TSNE
 - Trained T-SNE model on tagged documents to obtain a set of axes potentially useful for visualizing clusters (also tried PCA, though TSNE was more effective)
 
-![](img/tsne_kmeans_bestreps_2.svg|width=500)
+![](img/tsne_kmeans_bestreps_2.svg)
 
 :::notes
 - T-SNE stands for t-distributed Stochastic Neighbor Embedding
@@ -143,7 +143,7 @@ Doc2Vec features performed better than LSA features, consistently splitting the 
 
 | **LSA** | **Doc2Vec** | 
 |:-:|:-:|
-| ![](img/tsne_kmeans_bestreps_2.svg|width=400)| ![](img/tsne_kmeans_bestreps_sub5.svg|width=400)| 
+| ![](img/tsne_kmeans_bestreps_2.svg)| ![](img/tsne_kmeans_bestreps_sub5.svg)| 
 
 
 ## Clustering Observations
